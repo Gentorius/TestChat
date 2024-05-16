@@ -6,5 +6,5 @@ I made this project with to purposes in mind
 
 The repository contains the project itself, ProcessLogs and a finalizad Plan.
 
-ProcessLogs - A short series of plans for myself to advance further and to look for mistakes I made in the process
+PlanningLog - A short series of plans for myself to advance further and to look for mistakes I made in the process
 Plan - the final version of the plan without the mistakes
