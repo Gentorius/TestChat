@@ -12,6 +12,8 @@ First, I want to create a user system and basic interface. It will contain the f
 5. Hello window
 6. UserProfile window
 
+Detailed plan:
+
 1. User container will store users locally
 2. User object will store chat history, chat keys, username, user photo, and user id.
 3. Interface will spawn windows inside of itself, and be centered on main camera. Should be able to scale to device display size
