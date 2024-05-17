@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43b492ca-0602-4aac-b6c3-8acde014f072" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/User Interface/Windows.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Contollers.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View.meta" afterDir="false" />
-    </list>
+    <list default="true" id="43b492ca-0602-4aac-b6c3-8acde014f072" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +14,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/Gentorius/Documents/Work/Personal/UnityProjects/TestChat/Assets/Scenes/Init.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d617c9e1e974eb8b6639b2f0152e9441cbe00/63/15fa412d/DisplayInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Gentorius/Documents/Work/Personal/UnityProjects/TestChat/Assets/Prefabs/User Interface/UserInterface.prefab" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -108,6 +102,7 @@
       <updated>1715865646270</updated>
       <workItem from="1715865649670" duration="7077000" />
       <workItem from="1715882172772" duration="3301000" />
+      <workItem from="1715925863295" duration="3739000" />
     </task>
     <task id="LOCAL-00001" summary="idea files">
       <option name="closed" value="true" />
@@ -141,7 +136,31 @@
       <option name="project" value="LOCAL" />
       <updated>1715888620093</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Something in .idea">
+      <option name="closed" value="true" />
+      <created>1715925900602</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715925900602</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added background edge">
+      <option name="closed" value="true" />
+      <created>1715926557905</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715926557905</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Doing something">
+      <option name="closed" value="true" />
+      <created>1715929895725</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715929895725</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +187,9 @@
     <MESSAGE value="Added folders for easier navigation&#10;&#10;Also automatic change of default scene (previously renamed it)" />
     <MESSAGE value="Automatic change of default scene (previously renamed it)" />
     <MESSAGE value="Trying to add background to user interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trying to add background to user interface" />
+    <MESSAGE value="Something in .idea" />
+    <MESSAGE value="Added background edge" />
+    <MESSAGE value="Doing something" />
+    <option name="LAST_COMMIT_MESSAGE" value="Doing something" />
   </component>
 </project>

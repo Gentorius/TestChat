@@ -20,3 +20,27 @@ Detailed plan:
 4. LogIn window - spawns two input lines for username and password. If there is a match, then loads user. If something is wrong will spawn error message. Should allow to create a new user
 5. Hello window - shows greeting animation
 6. UserProfile window - shows and allows to edit username, allows to edit password, allows to edit user photo, allows to log out.
+
+Part 1.1
+
+4. LogIn changed to MessageHistory
+
+Bootstrap
+
+Pool objects in Unity
+
+Actors: UserList > User > UserProfile 
+Message > Date > Time <> Text <> User
+MessageHistory > Message <> MessageLimit
+CurrentUser <> User
+UserInput
+
+Visual
+ChatWindow
+MessageWidget
+UserInput > PrintMessage > Send
+
+UserConfig > serialize save > deserialize load
+ChatConfig message size, message limit
+
+MessageStream <> Reciever <> Sender 
