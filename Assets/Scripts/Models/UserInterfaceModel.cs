@@ -5,19 +5,19 @@ namespace Windows.Models
 {
     public class UserInterfaceModel
     {
-        private MainWindow _currentMainWindow = MainWindow.HelloWindow;
+        private FocusWindow _currentFocusWindow = FocusWindow.GreetingWindow;
      
         public UserInterfaceModel()
         {
    
         }
 
-        public void switchMainWindow(MainWindow newMainWindow)
+        public void switchMainWindow(FocusWindow newFocusWindow)
         {
-            _currentMainWindow = newMainWindow;
+            _currentFocusWindow = newFocusWindow;
             
-            if (newMainWindow > MainWindow.ProfileWindow || newMainWindow < MainWindow.HelloWindow)
-                _currentMainWindow = MainWindow.Unknown;
+            if (newFocusWindow > FocusWindow.ProfileWindow || newFocusWindow < FocusWindow.GreetingWindow)
+                _currentFocusWindow = FocusWindow.Unknown;
         }
         
     }
