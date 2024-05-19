@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Windows.Presenter.View
+namespace Presenter.View
 {
     public class UserInterfaceView : MonoBehaviour
     {

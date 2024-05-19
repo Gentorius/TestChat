@@ -1,23 +1,22 @@
 ﻿using Enums;
-using UnityEngine;
 
-namespace Windows.Models
+namespace Models
 {
     public class UserInterfaceModel
     {
-        private FocusWindow _currentFocusWindow = FocusWindow.GreetingWindow;
+        private CurrentOpenWindow _currentCurrentOpenWindow = CurrentOpenWindow.GreetingWindow;
      
         public UserInterfaceModel()
         {
    
         }
 
-        public void switchMainWindow(FocusWindow newFocusWindow)
+        public void switchMainWindow(CurrentOpenWindow newCurrentOpenWindow)
         {
-            _currentFocusWindow = newFocusWindow;
+            _currentCurrentOpenWindow = newCurrentOpenWindow;
             
-            if (newFocusWindow > FocusWindow.ProfileWindow || newFocusWindow < FocusWindow.GreetingWindow)
-                _currentFocusWindow = FocusWindow.Unknown;
+            if (newCurrentOpenWindow > CurrentOpenWindow.ProfileWindow || newCurrentOpenWindow < CurrentOpenWindow.GreetingWindow)
+                _currentCurrentOpenWindow = CurrentOpenWindow.Unknown;
         }
         
     }

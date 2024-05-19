@@ -1,6 +1,6 @@
-﻿using Windows.Models;
+﻿using Models;
 
-namespace Windows.Controllers
+namespace Controllers
 {
     public class UserInterfaceController
     {

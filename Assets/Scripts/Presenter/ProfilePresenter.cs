@@ -1,6 +1,6 @@
 ﻿namespace Presenter
 {
-    public class UserInterfacePresenter
+    public class ProfilePresenter
     {
         
     }

@@ -1,6 +1,6 @@
 ﻿namespace Enums
 {
-    public enum FocusWindow
+    public enum CurrentOpenWindow
     {
         Unknown = 0,
         GreetingWindow = 1,

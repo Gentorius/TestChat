@@ -4,7 +4,65 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43b492ca-0602-4aac-b6c3-8acde014f072" name="Changes" comment="" />
+    <list default="true" id="43b492ca-0602-4aac-b6c3-8acde014f072" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/ChatConfig.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/ChatConfig.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/ChatController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/ChatController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Editor/ConfigEditor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Editor/ConfigEditor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Editor/UserConfigEditor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Editor/UserConfigEditor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/UserConfigController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/UserConfigController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/ChatModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/ChatModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageHistoryModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageHistoryModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageHistoryStorageModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageHistoryStorageModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageReceiverModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageReceiverModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageSenderModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageSenderModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageStreamModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/MessageStreamModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserInputModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserInputModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserProfileModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserProfileModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserStorageModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserStorageModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/ChatPresenter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/ChatPresenter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/Panel.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/Panel/SidePanelView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/Panel/SidePanelView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/ProfilePresenter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/ProfilePresenter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/ChatView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/ChatView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/ProfileView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/ProfileView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/Widget/MessageWidget.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/Widget/MessageWidget.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/Widget/ProfileWidget.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/Widget/ProfileWidget.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/Widget/UserInputWidget.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/Widget/UserInputWidget.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TestChat/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TestChat/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/UserInterfaceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/UserInterfaceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/FocusWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/CurrentOpenWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/FocusWindow.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/CurrentOpenWindow.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/UserInterfaceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Models/UserInterfaceModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Presenter/UserInterfacePresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/UserInterfacePresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/UserInterfaceView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Presenter/View/UserInterfaceView.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +73,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1d617c9e1e974eb8b6639b2f0152e9441cbe00/63/15fa412d/DisplayInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Gentorius/Documents/Work/Personal/UnityProjects/TestChat/Assets/Prefabs/User Interface/UserInterface.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Gentorius/Documents/Work/Personal/UnityProjects/TestChat/Assets/Scripts/Models/UserInterfaceModel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@2.0.0/Runtime/UGUI/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Core/Utilities/UnityObjectUtility.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -104,6 +164,7 @@
       <workItem from="1715882172772" duration="3301000" />
       <workItem from="1715925863295" duration="3739000" />
       <workItem from="1715959267734" duration="1305000" />
+      <workItem from="1716101017267" duration="11482000" />
     </task>
     <task id="LOCAL-00001" summary="idea files">
       <option name="closed" value="true" />
@@ -169,7 +230,23 @@
       <option name="project" value="LOCAL" />
       <updated>1715962147403</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Sorting out">
+      <option name="closed" value="true" />
+      <created>1716101071016</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1716101071016</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Renamed enums and added new ones">
+      <option name="closed" value="true" />
+      <created>1716101214709</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1716101214709</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +277,8 @@
     <MESSAGE value="Added background edge" />
     <MESSAGE value="Doing something" />
     <MESSAGE value="Updated PlanningLog.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated PlanningLog.md" />
+    <MESSAGE value="Sorting out" />
+    <MESSAGE value="Renamed enums and added new ones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed enums and added new ones" />
   </component>
 </project>
