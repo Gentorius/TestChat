@@ -7,9 +7,10 @@ namespace Controllers
 {
     public class UserConfigController : ScriptableObject
     {
-        [field: SerializeField] private UserStorageModel UserStorage { get; set; }
+        [SerializeField]
+        public UserStorageModel UserStorage { get; set; }
 
-        private string jsonFilePath;
+        private string _jsonFilePath;
         
         public UserConfigController()
         {
@@ -26,26 +27,26 @@ namespace Controllers
             }
 
             string userStorageData = JsonUtility.ToJson(UserStorage);
-            jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
+            _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
             
-            System.IO.File.WriteAllText(jsonFilePath, userStorageData);
-            Debug.Log("Data save successfully at: " + jsonFilePath);
+            System.IO.File.WriteAllText(_jsonFilePath, userStorageData);
+            Debug.Log("Data save successfully at: " + _jsonFilePath);
         }
 
         public void LoadFromJson()
         {
-            if (jsonFilePath.IsUnityNull())
+            if (_jsonFilePath.IsUnityNull())
             {
                 Debug.LogError("Load path is not set");
                 return;
             }
 
-            if (File.Exists(jsonFilePath))
+            if (File.Exists(_jsonFilePath))
             {
                 Debug.LogError("The file does not exist in the specified path");
                 return;
             }
-            string storageData = System.IO.File.ReadAllText(jsonFilePath);
+            string storageData = System.IO.File.ReadAllText(_jsonFilePath);
             UserStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
         }
         

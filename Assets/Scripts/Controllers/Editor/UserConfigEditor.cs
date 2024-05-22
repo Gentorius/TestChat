@@ -9,10 +9,7 @@ namespace Controllers.Editor
         [MenuItem("Tools/Configs/UsersConfig")]
         private static void ShowWindow() 
             => OpenWindow<UserConfigEditor>();
-        public override void OnInspectorGUI()
-        {
-            UserConfigController userConfigController = (UserConfigController)target;
-            userConfigController.UserStorage = EditorGUILayout.Foldout(true, "Users");
-        }
+        
+        
     }
 }

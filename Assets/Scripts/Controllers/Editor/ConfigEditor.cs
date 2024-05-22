@@ -2,11 +2,14 @@
 
 namespace Controllers.Editor
 {
-    public class ConfigEditor : UnityEditor.Editor
+    public class ConfigEditor : EditorWindow
     {
-        protected static void OpenWindow<TY>() where TY : ConfigEditor
+        protected static TY OpenWindow<TY>() where TY : ConfigEditor
         {
             var editor = GetWindow<TY>();
+            editor.Show();
+
+            return editor;
         }
     }
 }
