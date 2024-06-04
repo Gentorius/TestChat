@@ -5,16 +5,16 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class UserConfigController : ScriptableObject
+    public class UserConfigController
     {
-        [SerializeField]
-        public UserStorageModel UserStorage { get; set; }
+        [SerializeField] 
+        private UserStorageModel UserStorage;
 
+        [SerializeField]
         private string _jsonFilePath;
         
         public UserConfigController()
         {
-            UserStorage = new UserStorageModel();
             
         }
 
@@ -28,8 +28,7 @@ namespace Controllers
 
             string userStorageData = JsonUtility.ToJson(UserStorage);
             _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
-            
-            System.IO.File.WriteAllText(_jsonFilePath, userStorageData);
+            File.WriteAllText(_jsonFilePath, userStorageData);
             Debug.Log("Data save successfully at: " + _jsonFilePath);
         }
 
@@ -41,7 +40,7 @@ namespace Controllers
                 return;
             }
 
-            if (File.Exists(_jsonFilePath))
+            if (!File.Exists(_jsonFilePath))
             {
                 Debug.LogError("The file does not exist in the specified path");
                 return;
@@ -49,6 +48,5 @@ namespace Controllers
             string storageData = System.IO.File.ReadAllText(_jsonFilePath);
             UserStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
         }
-        
     }
 }

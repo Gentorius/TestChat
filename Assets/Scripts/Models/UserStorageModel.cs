@@ -1,10 +1,13 @@
-﻿namespace Models
+﻿using UnityEngine;
+
+namespace Models
 {
-    public class UserStorageModel
+    public class UserStorageModel 
     {
+        [SerializeField]
         private UserModel[] _users;
-        private UserModel _defaultUser;
-        private UserModel _activeUser;
+        [SerializeField]
+        private int _activeUser;
 
         public UserStorageModel()
         {

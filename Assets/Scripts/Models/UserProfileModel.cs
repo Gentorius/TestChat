@@ -1,11 +1,14 @@
-﻿using UnityEngine.UIElements;
+﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Models
 {
     public class UserProfileModel
     {
+        [SerializeField]
         private string _name;
-        private Image _profileImage;
+        [SerializeField]
+        private Sprite _profileImage;
         
         public UserProfileModel()
         {
