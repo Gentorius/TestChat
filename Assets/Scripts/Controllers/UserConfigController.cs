@@ -41,25 +41,25 @@ namespace Controllers
             Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
         }
         
-        public void SetActiveUser(int id)
+        public UserModel SetActiveUser()
         {
             if (_userStorage.ActiveUserId < 1)
             {
                 Debug.LogError($"Active user id cannot be less than 1");
-                return;
+                return null;
             }
 
             foreach (var user in _userStorage.Users)
             {
                 if (_userStorage.ActiveUserId == user.ID)
                 {
-                    _userStorage.SetActiveUser(user);
                     Debug.Log($"Active user has been set");
-                    return;
+                    return _userStorage.SetActiveUser(user);;
                 }
             }
             
             Debug.LogError($"User id {_userStorage.ActiveUserId} could not be found");
+            return null;
         }
         
     }

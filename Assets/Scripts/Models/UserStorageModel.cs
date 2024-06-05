@@ -11,9 +11,10 @@ namespace Models
 
         private UserModel _activeUser;
 
-        public void SetActiveUser(UserModel newActiveUser)
+        public UserModel SetActiveUser(UserModel newActiveUser)
         {
             _activeUser = newActiveUser;
+            return _activeUser;
         }
     }
 }

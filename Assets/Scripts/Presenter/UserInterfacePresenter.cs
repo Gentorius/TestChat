@@ -1,7 +1,9 @@
-﻿namespace Presenter
+﻿using Presenter.View;
+
+namespace Presenter
 {
-    public class UserInterfacePresenter
+    public class UserInterfacePresenter : BasisPresenter<UserInterfaceView>
     {
-        
+
     }
 }

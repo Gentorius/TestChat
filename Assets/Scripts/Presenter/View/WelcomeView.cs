@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Presenter.View
 {
-    public class WelcomeView : WelcomePresenter
+    public class WelcomeView : BasicView
     {
         [SerializeField]
         private Sprite _activeUserProfilePicture;
@@ -13,15 +13,7 @@ namespace Presenter.View
         [SerializeField] 
         private TMP_Text _activeUserNickname;
 
-        private void OnEnable()
-        {
-            OnClickHandler += ClickHandler;
-        }
-
-        private void OnDisable()
-        {
-            OnClickHandler -= ClickHandler;
-        }
+        
 
         private void ClickHandler()
         {

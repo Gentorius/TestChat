@@ -1,9 +1,8 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Presenter.View
 {
-    public class UserInterfaceView : MonoBehaviour
+    public class UserInterfaceView : BasicView
     {
         private void Awake()
         {
@@ -25,22 +24,5 @@ namespace Presenter.View
             throw new NotImplementedException();
         }
     }
-
-    public class HelloView : MonoBehaviour
-    {
-        private void OnEnable()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDisable()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDestroy()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
 }
