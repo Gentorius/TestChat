@@ -1,18 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Models
 {
+    [Serializable]
     public class UserModel
     {
-        [SerializeField]
-        private int _id;
+        [SerializeField] 
+        public int ID;
         [SerializeField]
         private UserProfileModel _profile;
-        
-        public UserModel()
-        {
-            
-        }
     }
 }

@@ -18,18 +18,19 @@ namespace Controllers.Editor
         [SerializeField]
         private UserConfigController UserConfigController;
 
+        
+        [Button]
+        [ButtonGroup("Changes")]
+        public void LoadConfig()
+        {
+            UserConfigController.LoadFromJson();
+        }
+        
         [Button]
         [ButtonGroup("Changes")]
         public void SaveChanges()
         {
             UserConfigController.SaveToJson();
-        }
-        
-        [Button]
-        [ButtonGroup("Changes")]
-        public void LoadChanges()
-        {
-            UserConfigController.LoadFromJson();
         }
     }
 }

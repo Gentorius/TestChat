@@ -8,45 +8,59 @@ namespace Controllers
     public class UserConfigController
     {
         [SerializeField] 
-        private UserStorageModel UserStorage;
+        private UserStorageModel _userStorage;
 
         [SerializeField]
         private string _jsonFilePath;
-        
-        public UserConfigController()
-        {
-            
-        }
 
         public void SaveToJson()
         {
-            if (UserStorage.IsUnityNull())
+            if (_userStorage.IsUnityNull())
             {
                 Debug.LogError("UserConfig cannot be saved because UserStorage equals null");
                 return;
             }
 
-            string userStorageData = JsonUtility.ToJson(UserStorage);
+            var userStorageData = JsonUtility.ToJson(_userStorage);
             _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
             File.WriteAllText(_jsonFilePath, userStorageData);
-            Debug.Log("Data save successfully at: " + _jsonFilePath);
+            Debug.Log($"Data saved successfully at: {_jsonFilePath}");
         }
 
         public void LoadFromJson()
         {
-            if (_jsonFilePath.IsUnityNull())
-            {
-                Debug.LogError("Load path is not set");
-                return;
-            }
+            _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
 
             if (!File.Exists(_jsonFilePath))
             {
                 Debug.LogError("The file does not exist in the specified path");
                 return;
             }
-            string storageData = System.IO.File.ReadAllText(_jsonFilePath);
-            UserStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
+            var storageData = File.ReadAllText(_jsonFilePath);
+            _userStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
+            Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
         }
+        
+        public void SetActiveUser(int id)
+        {
+            if (_userStorage.ActiveUserId < 1)
+            {
+                Debug.LogError($"Active user id cannot be less than 1");
+                return;
+            }
+
+            foreach (var user in _userStorage.Users)
+            {
+                if (_userStorage.ActiveUserId == user.ID)
+                {
+                    _userStorage.SetActiveUser(user);
+                    Debug.Log($"Active user has been set");
+                    return;
+                }
+            }
+            
+            Debug.LogError($"User id {_userStorage.ActiveUserId} could not be found");
+        }
+        
     }
 }

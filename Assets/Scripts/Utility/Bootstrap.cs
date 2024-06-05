@@ -1,14 +1,24 @@
-﻿using Models;
+﻿using System;
+using Controllers;
+using Models;
+using UnityEngine;
 
 namespace Utility
 {
-    public class Bootstrap
+    public class Bootstrap : MonoBehaviour
     {
-        private UserStorageModel _userStorageModel;
-        
-        public Bootstrap()
+        private UserConfigController _userConfigController;
+
+
+        private void Awake()
         {
-            _userStorageModel = new UserStorageModel();
+            LoadUsers();
+        }
+        
+        private void LoadUsers()
+        {
+            _userConfigController = new UserConfigController();
+            _userConfigController.LoadFromJson();
         }
     }
 }

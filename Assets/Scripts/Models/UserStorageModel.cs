@@ -5,13 +5,15 @@ namespace Models
     public class UserStorageModel 
     {
         [SerializeField]
-        private UserModel[] _users;
+        public UserModel[] Users;
         [SerializeField]
-        private int _activeUser;
+        public int ActiveUserId;
 
-        public UserStorageModel()
+        private UserModel _activeUser;
+
+        public void SetActiveUser(UserModel newActiveUser)
         {
-            
+            _activeUser = newActiveUser;
         }
     }
 }
