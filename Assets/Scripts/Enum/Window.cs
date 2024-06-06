@@ -1,6 +1,6 @@
 ﻿namespace Enums
 {
-    public enum CurrentOpenWindow
+    public enum Window
     {
         Unknown = 0,
         WelcomeWindow = 1,

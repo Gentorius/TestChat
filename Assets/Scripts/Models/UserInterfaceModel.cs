@@ -4,18 +4,18 @@ namespace Models
 {
     public class UserInterfaceModel
     {
-        private CurrentOpenWindow _currentCurrentOpenWindow = CurrentOpenWindow.WelcomeWindow;
+        public Window CurrentWindow = Window.WelcomeWindow;
 
-        public void SetMainWindow(CurrentOpenWindow newCurrentOpenWindow)
+        public void SetMainWindow(Window newWindow)
         {
-            if (newCurrentOpenWindow > CurrentOpenWindow.ProfileWindow ||
-                newCurrentOpenWindow < CurrentOpenWindow.WelcomeWindow)
+            if (newWindow > Window.ProfileWindow ||
+                newWindow < Window.WelcomeWindow)
             {
-                _currentCurrentOpenWindow = CurrentOpenWindow.Unknown;
+                CurrentWindow = Window.Unknown;
                 return;
             }
             
-            _currentCurrentOpenWindow = newCurrentOpenWindow;
+            CurrentWindow = newWindow;
         }
         
     }
