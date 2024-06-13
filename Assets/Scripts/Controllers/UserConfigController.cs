@@ -53,8 +53,9 @@ namespace Controllers
             {
                 if (_userStorage.ActiveUserId == user.ID)
                 {
+                    _userStorage.ActiveUser = user;
                     Debug.Log($"Active user has been set");
-                    return _userStorage.SetActiveUser(user);;
+                    return _userStorage.ActiveUser;
                 }
             }
             

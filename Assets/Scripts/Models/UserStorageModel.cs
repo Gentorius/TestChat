@@ -9,12 +9,8 @@ namespace Models
         [SerializeField]
         public int ActiveUserId;
 
-        private UserModel _activeUser;
-
-        public UserModel SetActiveUser(UserModel newActiveUser)
-        {
-            _activeUser = newActiveUser;
-            return _activeUser;
-        }
+        [HideInInspector]
+        public UserModel ActiveUser;
+        
     }
 }

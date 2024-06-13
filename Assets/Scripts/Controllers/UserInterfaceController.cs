@@ -1,5 +1,6 @@
 ﻿using Models;
 using Presenter;
+using UnityEngine;
 
 namespace Controllers
 {
@@ -8,9 +9,9 @@ namespace Controllers
         private UserInterfaceModel _userInterfaceModel = new UserInterfaceModel();
         private UserInterfacePresenter _interfacePresenter;
 
-        public UserInterfaceController()
+        public UserInterfaceController(GameObject projectContext)
         {
-            _interfacePresenter = new UserInterfacePresenter(_userInterfaceModel);
+            _interfacePresenter = new UserInterfacePresenter(_userInterfaceModel, projectContext);
             
         }
 

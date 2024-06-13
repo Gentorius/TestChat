@@ -8,8 +8,7 @@ namespace Models
 
         public void SetMainWindow(Window newWindow)
         {
-            if (newWindow > Window.ProfileWindow ||
-                newWindow < Window.WelcomeWindow)
+            if (newWindow != Window.WelcomeWindow)
             {
                 CurrentWindow = Window.Unknown;
                 return;
