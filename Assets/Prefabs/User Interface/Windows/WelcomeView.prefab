@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5277687726476229352}
   - component: {fileID: 4031701478687833726}
   - component: {fileID: 5836920475711605155}
+  - component: {fileID: 4444192366574831602}
   m_Layer: 0
-  m_Name: HelloWindow
+  m_Name: WelcomeView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,3 +76,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4444192366574831602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583701165959128159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6de013acc00484e81f954c52a2856df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeUserProfilePicture: {fileID: 0}
+  _continueText: {fileID: 0}
+  _activeUserNickname: {fileID: 0}

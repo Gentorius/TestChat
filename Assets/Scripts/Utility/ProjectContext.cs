@@ -1,6 +1,7 @@
 ﻿using System;
 using Controllers;
 using Interface;
+using Presenter;
 using Presenter.View;
 using UnityEngine;
 
@@ -23,6 +24,11 @@ namespace Utility
             _windowReferenceServicePrefab.transform.SetParent(_projectContextGameObject.transform);
             _userInterfaceController = new UserInterfaceController();
         }
-        
+
+        private void OnEnable()
+        {
+            var defaultPresenter = new WelcomePresenter();
+            defaultPresenter.Initialize(_userInterfaceController);
+        }
     }
 }

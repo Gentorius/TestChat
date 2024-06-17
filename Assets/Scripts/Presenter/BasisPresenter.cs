@@ -1,26 +1,33 @@
 ﻿using Controllers;
 using Interface;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using Utility;
 
 namespace Presenter
 {
-    public class BasisPresenter<TY> where TY : MonoBehaviour, IWindow
+    public class BasisPresenter<TY> : IPresenter where TY : MonoBehaviour, IWindow
     {
-        protected TY view;
-        
+        protected TY View;
+        protected UserInterfaceController UserInterfaceController;
 
-        public BasisPresenter()
+        public void Initialize(UserInterfaceController userInterfaceController)
         {
-            OpenWindow();
+            UserInterfaceController = userInterfaceController;
+            
+            if (UserInterfaceController.InstantiatePresenter(this))
+                OpenWindow();
         }
 
         public void OpenWindow()
         {
-            
+            View = UserInterfaceController.InstantiateWindow<TY>();
         }
-        
+
         public void CloseWindow()
-        {}
+        {
+            Object.Destroy(View);
+            UserInterfaceController.DestroyPresenter(this);
+        }
     }
 }
