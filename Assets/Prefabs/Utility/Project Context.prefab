@@ -73,3 +73,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectContextGameObject: {fileID: 5295711408958891972}
+  _windowReferenceServicePrefab: {fileID: 7867802311705169003, guid: 75a61f27a73f721419aa0189a9f5e079, type: 3}

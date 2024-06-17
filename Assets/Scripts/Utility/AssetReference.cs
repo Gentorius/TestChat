@@ -1,26 +1,23 @@
 ﻿using System;
 using Models;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Utility
 {
-    public class BasicAssetReference : SerializedScriptableObject
+    public class AssetReference : MonoBehaviour
     {
         [SerializeField] 
         private AssetReferenceModel[] _items;
-
-        [SerializeField] 
-        private Type[] types;
         
         public AssetReferenceModel GetReference<T>() where T : MonoBehaviour
         {
             return GetReference(typeof(T));
         }
 
-        public AssetReferenceModel GetReference(Type type)
+        private AssetReferenceModel GetReference(Type type)
         {
-            int index = Array.FindIndex(types, t => t == type);
+            Component component;
+            var index = Array.FindIndex(_items, t => t.ReferenceAsset.TryGetComponent(type, out component));
             return index != -1 ? _items[index] : null;
         }
     }

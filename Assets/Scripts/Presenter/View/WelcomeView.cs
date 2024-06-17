@@ -13,8 +13,8 @@ namespace Presenter.View
         [SerializeField] 
         private TMP_Text _activeUserNickname;
 
+        public Action OnClickHandler;
         
-
         private void ClickHandler()
         {
             throw new NotImplementedException();

@@ -1,16 +1,20 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Models
 {
     [Serializable]
     public class AssetReferenceModel
     {
-        [SerializeField]
-        protected internal string m_AssetGUID = "";
-        public AssetReferenceModel(string guid)
+        public string AssetGuid { get; private set; }
+        [SerializeField] 
+        public GameObject ReferenceAsset;
+
+        public void LoadGUIDsOfAssets()
         {
-            m_AssetGUID = guid;
+            AssetGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(ReferenceAsset));
         }
     }
 }

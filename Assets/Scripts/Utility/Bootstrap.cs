@@ -8,15 +8,19 @@ namespace Utility
     public class Bootstrap : MonoBehaviour
     {
         private UserConfigController _userConfigController;
-        private UserInterfaceController _interfaceController;
+        
         [SerializeField] 
-        private GameObject _projectContext;
+        private GameObject _projectContext; //Used for behind the scenes processes
+        [SerializeField] 
+        private GameObject _userInterface; //Used for user in
 
         private void Awake()
         {
             LoadUsers();
-            Instantiate(_projectContext, new Vector3(0, 0, 0), Quaternion.identity);
-            _interfaceController = new UserInterfaceController(_projectContext);
+            
+            _projectContext = Instantiate(_projectContext, new Vector3(0, 0, 0), Quaternion.identity);
+
+            _userInterface = Instantiate(_userInterface, new Vector3(0, 0, 0), Quaternion.identity);
         }
         
         private void LoadUsers()

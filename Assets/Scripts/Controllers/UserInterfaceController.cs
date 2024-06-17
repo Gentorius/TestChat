@@ -6,18 +6,11 @@ namespace Controllers
 {
     public class UserInterfaceController
     {
-        private UserInterfaceModel _userInterfaceModel = new UserInterfaceModel();
-        private UserInterfacePresenter _interfacePresenter;
-
-        public UserInterfaceController(GameObject projectContext)
+        public void InstantiateWindow(GameObject window)
         {
-            _interfacePresenter = new UserInterfacePresenter(_userInterfaceModel, projectContext);
-            
-        }
-
-        public void LoadOnStart()
-        {
-            
+            window = Object.Instantiate(window, new Vector3(0, 0, 0), Quaternion.identity);
+            var userInterface = GameObject.Find("UserInterface");
+            window.transform.SetParent(userInterface.transform);
         }
     }
 }

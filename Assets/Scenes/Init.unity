@@ -292,6 +292,10 @@ PrefabInstance:
       value: Bootstrap
       objectReference: {fileID: 0}
     - target: {fileID: 6145245577323524659, guid: aef001e4791a5ae4ea0925460465236f, type: 3}
+      propertyPath: _userInterface
+      value: 
+      objectReference: {fileID: 6171178387190539318, guid: 8fc5ff67418fa2f42800f4b639d373ba, type: 3}
+    - target: {fileID: 6145245577323524659, guid: aef001e4791a5ae4ea0925460465236f, type: 3}
       propertyPath: _projectContext
       value: 
       objectReference: {fileID: 5295711408958891972, guid: 4e58f7b4d636d4249b4d4aa070a2b30b, type: 3}
