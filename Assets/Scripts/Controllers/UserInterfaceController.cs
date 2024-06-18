@@ -11,7 +11,13 @@ namespace Controllers
     public class UserInterfaceController
     {
         private List<IPresenter> _presenters = new List<IPresenter>();
+        private AssetReferenceObject _assetReferenceObject;
 
+        public UserInterfaceController(AssetReferenceObject assetReferenceObject)
+        {
+            _assetReferenceObject = assetReferenceObject;
+        }
+        
         public bool InstantiatePresenter(IPresenter presenter)
         {
             if (_presenters.Contains(presenter))
@@ -23,14 +29,13 @@ namespace Controllers
             return true;
         }
         
-        public static T InstantiateWindow<T>() where T : MonoBehaviour
+        public T InstantiateWindow<T>() where T : MonoBehaviour
         {
-            var windowReferenceService = GameObject.Find("WindowReferenceService");
-            var window = windowReferenceService.GetComponent<AssetReferenceObject>().GetReference<T>();
+            var window = _assetReferenceObject.GetComponent<AssetReferenceObject>().GetReference<T>();
             
             window = Object.Instantiate(window, new Vector3(0, 0, 0), Quaternion.identity);
             
-            var userInterface = GameObject.Find("UserInterface");
+            var userInterface = GameObject.Find("UserInterface(Clone)");
             window.transform.SetParent(userInterface.transform);
 
             var component = window.GetComponent<T>();
