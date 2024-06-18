@@ -22,7 +22,7 @@ namespace Utility
         {
             _windowReferenceServicePrefab = Instantiate(_windowReferenceServicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
             _windowReferenceServicePrefab.transform.SetParent(_projectContextGameObject.transform);
-            _userInterfaceController = new UserInterfaceController();
+            _userInterfaceController = new UserInterfaceController(_windowReferenceServicePrefab.GetComponent<AssetReferenceObject>());
         }
 
         private void OnEnable()
