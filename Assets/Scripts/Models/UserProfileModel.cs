@@ -11,5 +11,8 @@ namespace Models
         private string _nickname;
         [SerializeField]
         private Sprite _profileImage;
+
+        public string Nickname => _nickname;
+        public Sprite ProfileImage => _profileImage;
     }
 }

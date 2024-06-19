@@ -7,14 +7,17 @@ namespace Presenter.View
     public class WelcomeView : BasicView
     {
         [SerializeField]
-        private Sprite _activeUserProfilePicture;
+        private GameObject _activeUserProfilePicture;
         [SerializeField] 
-        private TMP_Text _continueText;
-        [SerializeField] 
-        private TMP_Text _activeUserNickname;
+        private GameObject _activeUserNickname;
 
         public Action OnClickHandler;
-        
+
+        private void OnEnable()
+        {
+            
+        }
+
         private void ClickHandler()
         {
             throw new NotImplementedException();

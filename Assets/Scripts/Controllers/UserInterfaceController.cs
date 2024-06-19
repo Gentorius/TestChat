@@ -33,9 +33,10 @@ namespace Controllers
         {
             var window = _assetReferenceObject.GetComponent<AssetReferenceObject>().GetReference<T>();
             
-            window = Object.Instantiate(window, new Vector3(0, 0, 0), Quaternion.identity);
-            
             var userInterface = GameObject.Find("UserInterface(Clone)");
+
+            window = Object.Instantiate(window, userInterface.transform);
+
             window.transform.SetParent(userInterface.transform);
 
             var component = window.GetComponent<T>();

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Models;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,21 +14,23 @@ namespace Controllers.Editor
             => OpenWindow<UserConfigEditor>();
         
         [SerializeField]
-        private UserConfigController UserConfigController;
+        private UserConfigController _userConfigController;
 
         
         [Button]
         [ButtonGroup("Changes")]
         public void LoadConfig()
         {
-            UserConfigController.LoadFromJson();
+            _userConfigController.LoadFromJson();
+            _userConfigController.SetActiveUser();
         }
         
         [Button]
         [ButtonGroup("Changes")]
-        public void SaveChanges()
+        public new void SaveChanges()
         {
-            UserConfigController.SaveToJson();
+            _userConfigController.SaveToJson();
+            _userConfigController.SetActiveUser();
         }
     }
 }

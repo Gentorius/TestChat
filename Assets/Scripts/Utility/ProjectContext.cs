@@ -11,17 +11,19 @@ namespace Utility
     {
         private BasicView _view;
         private UserInterfaceController _userInterfaceController;
+        private UserConfigController _userConfigController;
         
-        private GameObject _usetInterfaceObject;
         [SerializeField] 
         private GameObject _projectContextGameObject;
         [SerializeField] 
         private GameObject _windowReferenceServicePrefab;
 
+        public UserConfigController UserConfigController => _userConfigController;
+
         private void Awake()
         {
-            _windowReferenceServicePrefab = Instantiate(_windowReferenceServicePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            _windowReferenceServicePrefab.transform.SetParent(_projectContextGameObject.transform);
+            LoadUsers();
+            _windowReferenceServicePrefab = Instantiate(_windowReferenceServicePrefab, _projectContextGameObject.transform);
             _userInterfaceController = new UserInterfaceController(_windowReferenceServicePrefab.GetComponent<AssetReferenceObject>());
         }
 
@@ -29,6 +31,12 @@ namespace Utility
         {
             var defaultPresenter = new WelcomePresenter();
             defaultPresenter.Initialize(_userInterfaceController);
+        }
+        
+        private void LoadUsers()
+        {
+            _userConfigController = new UserConfigController();
+            _userConfigController.LoadFromJson();
         }
     }
 }

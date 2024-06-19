@@ -8,8 +8,11 @@ namespace Models
     public class UserModel
     {
         [SerializeField] 
-        public int ID;
+        private int id;
         [SerializeField]
         private UserProfileModel _profile;
+
+        public int ID => id;
+        public UserProfileModel Profile => _profile;
     }
 }

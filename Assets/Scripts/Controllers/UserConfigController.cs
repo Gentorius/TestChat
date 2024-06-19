@@ -13,6 +13,8 @@ namespace Controllers
         [SerializeField]
         private string _jsonFilePath;
 
+        public UserStorageModel UserStorage => _userStorage;
+
         public void SaveToJson()
         {
             if (_userStorage.IsUnityNull())
@@ -41,12 +43,12 @@ namespace Controllers
             Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
         }
         
-        public UserModel SetActiveUser()
+        public void SetActiveUser()
         {
             if (_userStorage.ActiveUserId < 1)
             {
                 Debug.LogError($"Active user id cannot be less than 1");
-                return null;
+                return;
             }
 
             foreach (var user in _userStorage.Users)
@@ -55,12 +57,11 @@ namespace Controllers
                 {
                     _userStorage.ActiveUser = user;
                     Debug.Log($"Active user has been set");
-                    return _userStorage.ActiveUser;
+                    return;
                 }
             }
             
             Debug.LogError($"User id {_userStorage.ActiveUserId} could not be found");
-            return null;
         }
         
     }
