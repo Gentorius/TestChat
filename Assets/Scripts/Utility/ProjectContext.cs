@@ -29,13 +29,13 @@ namespace Utility
 
         private void OnEnable()
         {
-            var defaultPresenter = new WelcomePresenter();
-            defaultPresenter.Initialize(_userInterfaceController);
+            var defaultPresenter = UserInterfaceController.GetPresenter<WelcomePresenter>();
+            defaultPresenter.OpenWindow();
         }
         
         private void LoadUsers()
         {
-            _userConfigController = new UserConfigController();
+            _userConfigController ??= new UserConfigController();
             _userConfigController.LoadFromJson();
             _userConfigController.SetActiveUser();
             if (_userConfigController.UserStorage.ActiveUser == null)

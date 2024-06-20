@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Interface;
 using Presenter.View;
@@ -10,17 +11,15 @@ namespace Controllers
 {
     public class UserInterfaceController
     {
-        private List<IPresenter> _presenters = new List<IPresenter>();
-        
-        public bool InstantiatePresenter(IPresenter presenter)
+        private readonly static Dictionary<Type ,IPresenter> _presenters = new ();
+
+        public static T GetPresenter<T>() where T : IPresenter, new()
         {
-            if (_presenters.Contains(presenter))
-            {
-                Debug.LogError($"Presenter {nameof(presenter)} already exists");
-                return false;
-            }
-            _presenters.Add(presenter);
-            return true;
+            if (_presenters.TryGetValue(typeof(T), out var presenter))
+                return presenter as T;
+            var value = new T();
+            _presenters.Add(typeof(T), value);
+            return value;
         }
         
         public static T InstantiateWindow<T>() where T : MonoBehaviour
@@ -37,16 +36,19 @@ namespace Controllers
             return component;
         }
 
-        public void DestroyPresenter(IPresenter presenter)
+        public static void OpenWindow<T>(T view) where T : MonoBehaviour
         {
-            _presenters.Remove(presenter);
-            if(_presenters.Contains(presenter))
-                Debug.LogError($"Failed to remove presenter {nameof(presenter)}");
+            view.gameObject.SetActive(true);
         }
 
-        public static void DestroyWindow<T>()
+        public static void DestroyWindow<T>(T view) where T : MonoBehaviour
         {
-            Object.Destroy(GameObject.Find($"{nameof(T)}(Clone)"));
+            Object.Destroy(view.gameObject);
+        }
+
+        public static void CloseWindow<T>(T view) where T : MonoBehaviour
+        {
+            view.gameObject.SetActive(false);
         }
     }
 }

@@ -10,11 +10,14 @@ namespace Controllers.Editor
     {
         
         [MenuItem("Tools/Configs/UsersConfig")]
-        private static void ShowWindow() 
-            => OpenWindow<UserConfigEditor>();
-        
-        [SerializeField]
-        private UserConfigController _userConfigController;
+        private static void ShowWindow()
+        {
+            var w = OpenWindow<UserConfigEditor>();
+            w.LoadConfig();
+        }
+
+        [ShowInInspector]
+        private UserConfigController _userConfigController = new UserConfigController();
 
         
         [Button]

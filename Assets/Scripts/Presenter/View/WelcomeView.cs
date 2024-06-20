@@ -1,21 +1,28 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Presenter.View
 {
-    public class WelcomeView : BasicView, IPointerDownHandler
+    public class WelcomeView : BasicView
     {
+        [SerializeField] 
+        private Button _button;
+        
         public event Action OnClick;
-        
-        private void OnMouseDown()
+
+        private void OnEnable()
         {
-            OnClick?.Invoke();
-            Debug.Log("MouseDown");
+            _button.onClick.AddListener(OnMouseDownOrTap);
         }
-        
-        public void OnPointerDown(PointerEventData eventData)
+
+        private void OnDisable()
+        {
+            _button.onClick.RemoveListener(OnMouseDownOrTap);
+        }
+
+        private void OnMouseDownOrTap()
         {
             OnClick?.Invoke();
             Debug.Log("MouseDown");

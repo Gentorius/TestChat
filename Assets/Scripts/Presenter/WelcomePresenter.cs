@@ -5,7 +5,7 @@ namespace Presenter
 {
     public class WelcomePresenter : BasisPresenter<WelcomeView>
     {
-        public override void OnShow()
+        protected override void OnShow()
         {
             View.OnClick += CloseWindow;
         }
