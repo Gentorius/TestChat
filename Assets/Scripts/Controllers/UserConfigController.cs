@@ -41,6 +41,7 @@ namespace Controllers
             var storageData = File.ReadAllText(_jsonFilePath);
             _userStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
             Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
+            
         }
         
         public void SetActiveUser()

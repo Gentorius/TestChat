@@ -49,7 +49,7 @@ namespace Presenter.View.Widget
 
         private void SetActiveUserData()
         {
-            var profile = GameObject.Find("ProjectContext(Clone)").GetComponent<ProjectContext>().UserConfigController.UserStorage.ActiveUser.Profile;
+            var profile = GameObject.Find("Project Context(Clone)").GetComponent<ProjectContext>().UserConfigController.UserStorage.ActiveUser.Profile;
 
             _userProfilePictureObject.GetComponent<Image>().sprite = profile.ProfileImage;
             _userNicknameObject.GetComponent<TextMeshProUGUI>().text = profile.Nickname;

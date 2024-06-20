@@ -37,6 +37,9 @@ namespace Utility
         {
             _userConfigController = new UserConfigController();
             _userConfigController.LoadFromJson();
+            _userConfigController.SetActiveUser();
+            if (_userConfigController.UserStorage.ActiveUser == null)
+                Debug.LogError("Active User is not set");
         }
     }
 }
