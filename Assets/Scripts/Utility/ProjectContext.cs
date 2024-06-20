@@ -24,7 +24,7 @@ namespace Utility
         {
             LoadUsers();
             _windowReferenceServicePrefab = Instantiate(_windowReferenceServicePrefab, _projectContextGameObject.transform);
-            _userInterfaceController = new UserInterfaceController(_windowReferenceServicePrefab.GetComponent<AssetReferenceObject>());
+            _userInterfaceController = new UserInterfaceController();
         }
 
         private void OnEnable()

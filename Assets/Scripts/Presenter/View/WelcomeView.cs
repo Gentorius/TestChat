@@ -1,26 +1,24 @@
 ﻿using System;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Presenter.View
 {
-    public class WelcomeView : BasicView
+    public class WelcomeView : BasicView, IPointerDownHandler
     {
-        [SerializeField]
-        private GameObject _activeUserProfilePicture;
-        [SerializeField] 
-        private GameObject _activeUserNickname;
-
-        public Action OnClickHandler;
-
-        private void OnEnable()
+        public event Action OnClick;
+        
+        private void OnMouseDown()
         {
-            
+            OnClick?.Invoke();
+            Debug.Log("MouseDown");
         }
-
-        private void ClickHandler()
+        
+        public void OnPointerDown(PointerEventData eventData)
         {
-            throw new NotImplementedException();
+            OnClick?.Invoke();
+            Debug.Log("MouseDown");
         }
     }
 }

@@ -11,12 +11,6 @@ namespace Controllers
     public class UserInterfaceController
     {
         private List<IPresenter> _presenters = new List<IPresenter>();
-        private AssetReferenceObject _assetReferenceObject;
-
-        public UserInterfaceController(AssetReferenceObject assetReferenceObject)
-        {
-            _assetReferenceObject = assetReferenceObject;
-        }
         
         public bool InstantiatePresenter(IPresenter presenter)
         {
@@ -29,9 +23,9 @@ namespace Controllers
             return true;
         }
         
-        public T InstantiateWindow<T>() where T : MonoBehaviour
+        public static T InstantiateWindow<T>() where T : MonoBehaviour
         {
-            var window = _assetReferenceObject.GetComponent<AssetReferenceObject>().GetReference<T>();
+            var window = GameObject.Find("WindowReferenceService(Clone)").GetComponent<AssetReferenceObject>().GetReference<T>();
             
             var userInterface = GameObject.Find("UserInterface(Clone)");
 
@@ -48,6 +42,11 @@ namespace Controllers
             _presenters.Remove(presenter);
             if(_presenters.Contains(presenter))
                 Debug.LogError($"Failed to remove presenter {nameof(presenter)}");
+        }
+
+        public static void DestroyWindow<T>()
+        {
+            Object.Destroy(GameObject.Find($"{nameof(T)}(Clone)"));
         }
     }
 }

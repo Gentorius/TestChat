@@ -22,12 +22,18 @@ namespace Presenter
         public void OpenWindow()
         {
             View = UserInterfaceController.InstantiateWindow<TY>();
+            OnShow();
         }
 
         public void CloseWindow()
         {
-            Object.Destroy(View);
+            UserInterfaceController.DestroyWindow<TY>();
             UserInterfaceController.DestroyPresenter(this);
+        }
+
+        public virtual void OnShow()
+        {
+            
         }
     }
 }
