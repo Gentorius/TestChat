@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Models
 
         public MessageModel[] SerializedMessages;
         
+        [HideInInspector]
         public int IndexOfNewMessage = 0;
     }
 }
