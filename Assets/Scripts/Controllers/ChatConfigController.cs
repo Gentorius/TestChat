@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Models;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -21,15 +22,23 @@ namespace Controllers
                 return;
             }
 
+            if (_chatHistory.SerializedMessages.Length < _chatHistory.Messages.Count)
+                _chatHistory.SerializedMessages = _chatHistory.Messages.ToArray();
+
+            if (_chatHistory.Messages.Count < _chatHistory.SerializedMessages.Length)
+                _chatHistory.Messages = _chatHistory.SerializedMessages.ToList();
+            
             var chatHistoryData = JsonUtility.ToJson(_chatHistory);
             _jsonFilePath = Application.persistentDataPath + "/ChatHistoryData.json";
             File.WriteAllText(_jsonFilePath, chatHistoryData);
             Debug.Log($"Data saved successfully at: {_jsonFilePath}");
+
+            SetNewMessageIndex();
         }
         
         public void LoadFromJson()
         {
-            _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
+            _jsonFilePath = Application.persistentDataPath + "/ChatHistoryData.json";
 
             if (!File.Exists(_jsonFilePath))
             {
@@ -38,14 +47,15 @@ namespace Controllers
             }
             var storageData = File.ReadAllText(_jsonFilePath);
             _chatHistory = JsonUtility.FromJson<ChatHistoryModel>(storageData);
+            _chatHistory.Messages = _chatHistory.SerializedMessages.ToList();
             Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
             
             SetNewMessageIndex();
         }
 
-        public void SetNewMessageIndex()
+        private void SetNewMessageIndex()
         {
-            var lastMessageIndex = _chatHistory.Messages[^1].messageIndex;
+            var lastMessageIndex = _chatHistory.Messages[^1].MessageIndex;
             _chatHistory.IndexOfNewMessage = lastMessageIndex + 1;
         }
     }

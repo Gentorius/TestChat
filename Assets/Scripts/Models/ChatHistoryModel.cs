@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using Sirenix.Serialization;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Models
 {
+    [Serializable]
     public class ChatHistoryModel
     {
         [HideInInspector]

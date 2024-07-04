@@ -8,8 +8,8 @@ namespace Controllers.Editor
         [MenuItem("Tools/Configs/ChatConfig")]
         private static void ShowWindow()
         {
-            var w = OpenWindow<ChatConfigEditor>();
-            w.LoadConfig();
+            var window = OpenWindow<ChatConfigEditor>();
+            window.LoadConfig();
         }
         
         [ShowInInspector]
@@ -28,7 +28,6 @@ namespace Controllers.Editor
         public new void SaveChanges()
         {
             _chatConfigController.SaveToJson();
-            _chatConfigController.SetNewMessageIndex();
         }
     }
 }
