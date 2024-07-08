@@ -14,6 +14,8 @@ namespace Stream.Controllers
         [ShowInInspector]
         private string _jsonFilePath;
 
+        public bool isChatOn = false;
+
         public void SaveToJson()
         {
             if (ChatHistory.IsUnityNull())
@@ -22,11 +24,18 @@ namespace Stream.Controllers
                 return;
             }
 
-            if (ChatHistory.SerializedMessages.Length < ChatHistory.Messages.Count)
-                ChatHistory.SerializedMessages = ChatHistory.Messages.ToArray();
-
-            if (ChatHistory.Messages.Count < ChatHistory.SerializedMessages.Length)
-                ChatHistory.Messages = ChatHistory.SerializedMessages.ToList();
+            if (!ChatHistory.SerializedMessages.Equals(ChatHistory.Messages.ToArray()))
+            {
+                if (isChatOn)
+                {
+                    ChatHistory.SerializedMessages = ChatHistory.Messages.ToArray();
+                }
+                else
+                {
+                    ChatHistory.Messages = ChatHistory.SerializedMessages.ToList();
+                }
+            }
+                
             
             var chatHistoryData = JsonUtility.ToJson(ChatHistory);
             _jsonFilePath = Application.persistentDataPath + "/ServerChatHistoryData.json";
