@@ -1,12 +1,13 @@
-﻿using Sirenix.OdinInspector;
+﻿using Controllers;
+using Controllers.Editor;
+using Sirenix.OdinInspector;
 using UnityEditor;
-using UnityEngine;
 
-namespace Controllers.Editor
+namespace Stream.Controllers.Editor
 {
     [CustomEditor(typeof(UserConfigController))]
     
-    public class UserConfigEditor : ConfigEditor
+    public class ServerUserConfigEditor : ConfigEditor
     {
         
         [MenuItem("Tools/ClientConfigs/UsersConfig")]
@@ -17,7 +18,7 @@ namespace Controllers.Editor
         }
 
         [ShowInInspector]
-        private UserConfigController _userConfigController = new UserConfigController();
+        private ServerUserConfigController _userConfigController = new ServerUserConfigController();
 
         
         [Button]

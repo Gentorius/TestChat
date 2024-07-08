@@ -5,9 +5,9 @@ using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Controllers
+namespace Stream.Controllers
 {
-    public class ChatConfigController
+    public class ServerChatConfigController
     {
         [SerializeField]
         public ChatHistoryModel ChatHistory;
@@ -29,7 +29,7 @@ namespace Controllers
                 ChatHistory.Messages = ChatHistory.SerializedMessages.ToList();
             
             var chatHistoryData = JsonUtility.ToJson(ChatHistory);
-            _jsonFilePath = Application.persistentDataPath + "/ChatHistoryData.json";
+            _jsonFilePath = Application.persistentDataPath + "/ServerChatHistoryData.json";
             File.WriteAllText(_jsonFilePath, chatHistoryData);
             Debug.Log($"Data saved successfully at: {_jsonFilePath}");
 
@@ -38,7 +38,7 @@ namespace Controllers
         
         public void LoadFromJson()
         {
-            _jsonFilePath = Application.persistentDataPath + "/ChatHistoryData.json";
+            _jsonFilePath = Application.persistentDataPath + "/ServerChatHistoryData.json";
 
             if (!File.Exists(_jsonFilePath))
             {

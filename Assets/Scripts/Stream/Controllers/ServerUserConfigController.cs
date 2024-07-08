@@ -3,33 +3,35 @@ using Models;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Controllers
+namespace Stream.Controllers
 {
-    public class UserConfigController
+    public class ServerUserConfigController
     {
         [SerializeField] 
-        public UserStorageModel UserStorage;
+        private UserStorageModel _userStorage;
 
         [SerializeField]
         private string _jsonFilePath;
 
+        public UserStorageModel UserStorage => _userStorage;
+
         public void SaveToJson()
         {
-            if (UserStorage.IsUnityNull())
+            if (_userStorage.IsUnityNull())
             {
                 Debug.LogError("UserConfig cannot be saved because UserStorage equals null");
                 return;
             }
 
-            var userStorageData = JsonUtility.ToJson(UserStorage);
-            _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
+            var userStorageData = JsonUtility.ToJson(_userStorage);
+            _jsonFilePath = Application.persistentDataPath + "/ServerUserStorageData.json";
             File.WriteAllText(_jsonFilePath, userStorageData);
             Debug.Log($"Data saved successfully at: {_jsonFilePath}");
         }
 
         public void LoadFromJson()
         {
-            _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
+            _jsonFilePath = Application.persistentDataPath + "/ServerUserStorageData.json";
 
             if (!File.Exists(_jsonFilePath))
             {
@@ -37,30 +39,30 @@ namespace Controllers
                 return;
             }
             var storageData = File.ReadAllText(_jsonFilePath);
-            UserStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
+            _userStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
             Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
             
         }
         
         public void SetActiveUser()
         {
-            if (UserStorage.ActiveUserId < 1)
+            if (_userStorage.ActiveUserId < 1)
             {
                 Debug.LogError($"Active user id cannot be less than 1");
                 return;
             }
 
-            foreach (var user in UserStorage.Users)
+            foreach (var user in _userStorage.Users)
             {
-                if (UserStorage.ActiveUserId == user.ID)
+                if (_userStorage.ActiveUserId == user.ID)
                 {
-                    UserStorage.ActiveUser = user;
+                    _userStorage.ActiveUser = user;
                     Debug.Log($"Active user has been set");
                     return;
                 }
             }
             
-            Debug.LogError($"User id {UserStorage.ActiveUserId} could not be found");
+            Debug.LogError($"User id {_userStorage.ActiveUserId} could not be found");
         }
         
     }

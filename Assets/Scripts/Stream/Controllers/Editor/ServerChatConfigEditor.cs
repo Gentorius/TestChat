@@ -1,9 +1,10 @@
-﻿using Sirenix.OdinInspector;
+﻿using Controllers.Editor;
+using Sirenix.OdinInspector;
 using UnityEditor;
 
-namespace Controllers.Editor
+namespace Stream.Controllers.Editor
 {
-    public class ChatConfigEditor : ConfigEditor
+    public class ServerChatConfigEditor : ConfigEditor
     {
         [MenuItem("Tools/ClientConfigs/ChatConfig")]
         private static void ShowWindow()
@@ -13,7 +14,7 @@ namespace Controllers.Editor
         }
         
         [ShowInInspector]
-        private ChatConfigController _chatConfigController = new ChatConfigController();
+        private ServerChatConfigController _chatConfigController = new ServerChatConfigController();
 
         
         [Button]
