@@ -25,7 +25,6 @@ namespace Controllers.Editor
         public void LoadConfig()
         {
             _userConfigController.LoadFromJson();
-            _userConfigController.SetActiveUser();
         }
         
         [Button]
@@ -33,7 +32,6 @@ namespace Controllers.Editor
         public new void SaveChanges()
         {
             _userConfigController.SaveToJson();
-            _userConfigController.SetActiveUser();
         }
     }
 }

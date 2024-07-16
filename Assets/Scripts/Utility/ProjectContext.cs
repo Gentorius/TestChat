@@ -1,11 +1,8 @@
 ﻿using System;
 using Controllers;
-using Interface;
 using Presenter;
 using Presenter.View;
-using Stream;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Utility
 {
@@ -27,12 +24,13 @@ namespace Utility
 
         private void Awake()
         {
-            _dataStream = FindAnyObjectByType<DataStream>();
             LoadUsers();
             _windowReferenceServicePrefab = Instantiate(_windowReferenceServicePrefab, _projectContextGameObject.transform);
             _userInterfaceController = new UserInterfaceController();
             _chatConfigController = new ChatConfigController();
             _chatConfigController.LoadFromJson();
+            _dataStream = new DataStream();
+            _dataStream.Initialize(_chatConfigController);
         }
 
         private void OnEnable()
@@ -40,14 +38,16 @@ namespace Utility
             var defaultPresenter = UserInterfaceController.GetPresenter<WelcomePresenter>();
             defaultPresenter.OpenWindow();
         }
-        
+
+        private void OnDisable()
+        {
+            _dataStream.Dispose();
+        }
+
         private void LoadUsers()
         {
             _userConfigController ??= new UserConfigController();
             _userConfigController.LoadFromJson();
-            _userConfigController.SetActiveUser();
-            if (_userConfigController.UserStorage.ActiveUser == null)
-                Debug.LogError("Active User is not set");
         }
     }
 }

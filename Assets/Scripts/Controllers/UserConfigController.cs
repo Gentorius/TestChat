@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Models;
+using Sirenix.Utilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,19 @@ namespace Controllers
         [SerializeField]
         private string _jsonFilePath;
 
+        public void ValidateAndLoadData()
+        {
+            LoadFromJson();
+            SetActiveUser();
+            if (UserStorage.Users.IsNullOrEmpty())
+            {
+                Debug.LogError("UserStorage.Users is null or empty");
+                return;
+            }
+            
+            
+        }
+
         public void SaveToJson()
         {
             if (UserStorage.IsUnityNull())
@@ -25,6 +39,8 @@ namespace Controllers
             _jsonFilePath = Application.persistentDataPath + "/UserStorageData.json";
             File.WriteAllText(_jsonFilePath, userStorageData);
             Debug.Log($"Data saved successfully at: {_jsonFilePath}");
+
+            SetActiveUser();
         }
 
         public void LoadFromJson()
@@ -39,7 +55,8 @@ namespace Controllers
             var storageData = File.ReadAllText(_jsonFilePath);
             UserStorage = JsonUtility.FromJson<UserStorageModel>(storageData);
             Debug.Log($"Data loaded successfully from: {_jsonFilePath}");
-            
+
+            SetActiveUser();
         }
         
         public void SetActiveUser()
