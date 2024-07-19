@@ -21,6 +21,7 @@ namespace Utility
 
         public UserConfigController UserConfigController => _userConfigController;
         public ChatConfigController ChatConfigController => _chatConfigController;
+        public DataStream DataStream => _dataStream;
 
         private void Awake()
         {

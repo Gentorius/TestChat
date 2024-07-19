@@ -7,7 +7,7 @@ using Utility;
 
 namespace Presenter
 {
-    public abstract class BasisPresenter<TY> : IPresenter where TY : MonoBehaviour, IWindow
+    public abstract class BasicPresenter<TY> : IPresenter where TY : MonoBehaviour, IWindow
     {
         protected TY View;
 
@@ -24,12 +24,18 @@ namespace Presenter
             OnShow();
         }
 
-        public void CloseWindow()
+        protected void CloseWindow()
         {
+            OnHide();
             UserInterfaceController.DestroyWindow(View);
         }
 
         protected virtual void OnShow()
+        {
+            
+        }
+        
+        protected virtual void OnHide()
         {
             
         }

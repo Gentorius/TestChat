@@ -3,7 +3,7 @@ using Sirenix.OdinInspector.Editor.Drawers;
 
 namespace Presenter
 {
-    public class WelcomePresenter : BasisPresenter<WelcomeView>
+    public class WelcomePresenter : BasicPresenter<WelcomeView>
     {
         protected override void OnShow()
         {

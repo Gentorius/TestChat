@@ -8,12 +8,11 @@ namespace Models
     public class MessageModel
     {
         
-        public int UserOwnerId;
+        public int SenderId;
         public string Message;
-        public string[] SmallEmojis;
-        public string BigEmoji;
+        public string Sticker;
         public string[] ReactionEmojis;
-        public string TimeSent;
+        public DateTime TimeSent;
         [HideInInspector]
         public int MessageIndex;
     }

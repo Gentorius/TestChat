@@ -59,13 +59,6 @@ namespace Controllers
             ChatHistory.IndexOfNewMessage = lastMessageIndex + 1;
         }
         
-        public void UpdateChatHistory(string serverChatHistoryJSON)
-        {
-            ChatHistory = JsonUtility.FromJson<ChatHistoryModel>(serverChatHistoryJSON);
-            ChatHistory.Messages = ChatHistory.SerializedMessages.ToList();
-            SaveToJson();
-        }
-        
         public void AddMessageFromJson(string message)
         {
             var messageModel = JsonUtility.FromJson<MessageModel>(message);

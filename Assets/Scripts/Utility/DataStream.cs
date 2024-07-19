@@ -1,6 +1,5 @@
 using System;
 using Controllers;
-using Models;
 
 namespace Utility
 {
@@ -16,14 +15,14 @@ namespace Utility
             _chatConfigController = chatConfigController;
         }
         
-        public void SendData(string messageJSON)
+        public void SendData(string messageJson)
         {
-            ReceiveData?.Invoke(messageJSON);
+            ReceiveData?.Invoke(messageJson);
         }
         
-        public void OnReceiveDataHandler(string messageJSON)
+        public void OnReceiveDataHandler(string messageJson)
         {
-            _chatConfigController.AddMessageFromJson(messageJSON);
+            _chatConfigController.AddMessageFromJson(messageJson);
         }
         
         public void Dispose()
