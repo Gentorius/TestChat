@@ -1,5 +1,6 @@
 using System;
 using Models;
+using Presenter.View.Scroll;
 using Presenter.View.Widget;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ namespace Presenter.View
     public class ChatView : BasicView
     {
         [SerializeField]
-        private ScrollRect _chatScrollRect;
+        private ChatScrollRect _chatScrollRect;
         [SerializeField]
         private ScrollRect _usersScrollRect;
         [SerializeField]
@@ -34,9 +35,9 @@ namespace Presenter.View
             _sendButton.onClick.RemoveListener(SendMessage);
         }
         
-        public void LoadChat(ChatHistoryModel chatHistoryModel)
+        public void LoadChat(ChatHistoryModel chatHistoryModel, int activeUserId)
         {
-            
+            _chatScrollRect.Initialize(activeUserId);
         }
         
         public void UpdateChatView(MessageModel message)

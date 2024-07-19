@@ -23,18 +23,18 @@ namespace Presenter
             _chatConfigController = _projectContext.ChatConfigController;
             _dataStream = _projectContext.DataStream;
             
-            View.LoadChat(_chatConfigController.ChatHistory);
+            View.LoadChat(_chatConfigController.ChatHistory, _userConfigController.UserStorage.ActiveUser.ID);
             _oldChatHistoryModel = _chatConfigController.ChatHistory;
             
-            View.OnSendMessage += SendMessage;
+            View.OnSendMessage += OnSendMessageHandler;
         }
         
         protected override void OnHide()
         {
-            View.OnSendMessage -= SendMessage;
+            View.OnSendMessage -= OnSendMessageHandler;
         }
         
-        private void SendMessage(string message)
+        private void OnSendMessageHandler(string message)
         {
             var messageJson = JsonUtility.ToJson(new MessageModel
             {
