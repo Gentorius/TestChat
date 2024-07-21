@@ -1,6 +1,7 @@
 using Controllers;
 using Models;
 using Presenter.View.Widget;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Presenter.View.Scroll
@@ -14,11 +15,12 @@ namespace Presenter.View.Scroll
             _activeUserID = activeUserID;
         }
         
-        private void LoadChat(ChatHistoryModel chatHistoryModel)
+        private void LoadChat(ChatHistoryModel chatHistoryModel, UserStorageModel userStorageModel)
         {
             foreach (var message in chatHistoryModel.Messages)
             {
-                Instantiate(new MessageWidget());
+                var messageWidget = Instantiate(Resources.Load<MessageWidget>("Prefabs/MessageWidget"), content);
+                messageWidget.SpawnMessage(message, userStorageModel.Users[message.SenderId], message.SenderId == _activeUserID);
             }
         }
         
