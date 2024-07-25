@@ -14,19 +14,6 @@ namespace Controllers
         [SerializeField]
         private string _jsonFilePath;
 
-        public void ValidateAndLoadData()
-        {
-            LoadFromJson();
-            SetActiveUser();
-            if (UserStorage.Users.IsNullOrEmpty())
-            {
-                Debug.LogError("UserStorage.Users is null or empty");
-                return;
-            }
-            
-            
-        }
-
         public void SaveToJson()
         {
             if (UserStorage.IsUnityNull())
@@ -59,7 +46,21 @@ namespace Controllers
             SetActiveUser();
         }
         
-        public void SetActiveUser()
+        public UserModel GetUserById(int id)
+        {
+            foreach (var user in UserStorage.Users)
+            {
+                if (id == user.ID)
+                {
+                    return user;
+                }
+            }
+
+            Debug.LogError($"User id {id} could not be found");
+            return null;
+        }
+
+        private void SetActiveUser()
         {
             if (UserStorage.ActiveUserId < 1)
             {

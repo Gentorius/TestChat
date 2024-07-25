@@ -35,14 +35,12 @@ namespace Presenter.View
             _sendButton.onClick.RemoveListener(SendMessage);
         }
         
-        public void LoadChat(ChatHistoryModel chatHistoryModel, int activeUserId)
+        public void AddMessage(MessageModel message, GameObject messageWidgetPrefab, UserModel user, bool isCurrentUser)
         {
-            _chatScrollRect.Initialize(activeUserId);
+            var messageWidget = Instantiate(messageWidgetPrefab, _chatScrollRect.content);
+            messageWidget.GetComponent<MessageWidget>().InitializeMessage(message, user, isCurrentUser);
+            _chatScrollRect.ScrollToBottom();
         }
         
-        public void UpdateChatView(MessageModel message)
-        {
-            
-        }
     }
 }
