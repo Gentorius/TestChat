@@ -1,18 +1,19 @@
 using System;
 using Controllers;
+using Interface;
 
 namespace Utility
 {
-    public class DataStream
+    public class DataStream : IService
     {
         public event Action<string> ReceiveData;
         
-        private ChatConfigController _chatConfigController;
+        private ChatDataHandler _chatDataHandler;
         
-        public void Initialize(ChatConfigController chatConfigController)
+        public void Initialize(ChatDataHandler chatDataHandler)
         {
             ReceiveData += OnReceiveDataHandler;
-            _chatConfigController = chatConfigController;
+            _chatDataHandler = chatDataHandler;
         }
         
         public void SendData(string messageJson)
@@ -22,7 +23,7 @@ namespace Utility
         
         public void OnReceiveDataHandler(string messageJson)
         {
-            _chatConfigController.AddMessageFromJson(messageJson);
+            _chatDataHandler.AddMessageFromJson(messageJson);
         }
         
         public void Dispose()

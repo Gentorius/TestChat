@@ -13,21 +13,21 @@ namespace Controllers.Editor
         }
         
         [ShowInInspector]
-        private ChatConfigController _chatConfigController = new ChatConfigController();
+        private ChatDataHandler _chatDataHandler = new ChatDataHandler();
 
         
         [Button]
         [ButtonGroup("Changes")]
         public void LoadConfig()
         {
-            _chatConfigController.LoadFromJson();
+            _chatDataHandler.LoadHistory();
         }
         
         [Button]
         [ButtonGroup("Changes")]
         public new void SaveChanges()
         {
-            _chatConfigController.SaveToJson();
+            _chatDataHandler.SaveToJson();
         }
     }
 }

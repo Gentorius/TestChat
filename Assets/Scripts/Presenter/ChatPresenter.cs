@@ -12,23 +12,23 @@ namespace Presenter
     public class ChatPresenter : BasicPresenter<ChatView>
     {
         private UserConfigController _userConfigController;
-        private ChatConfigController _chatConfigController;
+        private ChatDataHandler _chatDataHandler;
         private ProjectContext _projectContext;
         private DataStream _dataStream;
-        private ChatHistoryModel _oldChatHistoryModel;
+        private ChatHistory _oldChatHistory;
         private GameObject _messageWidgetPrefab;
         
         protected override void OnShow()
         {
             _projectContext = Object.FindAnyObjectByType<ProjectContext>();
             _userConfigController = _projectContext.UserConfigController;
-            _chatConfigController = _projectContext.ChatConfigController;
+            _chatDataHandler = _projectContext.ChatDataHandler;
             _dataStream = _projectContext.DataStream;
             _messageWidgetPrefab = _projectContext.GetComponentInChildren<AssetReferenceObject>().GetReference<MessageWidget>();
             
-            _oldChatHistoryModel = _chatConfigController.ChatHistory;
+            _oldChatHistory = _chatDataHandler.ChatHistory;
             
-            LoadChatView(_chatConfigController.ChatHistory);
+            LoadChatView(_chatDataHandler.ChatHistory);
             
             View.OnSendMessage += OnSendMessageHandler;
         }
@@ -52,25 +52,25 @@ namespace Presenter
             _dataStream.SendData(messageJson);
         }
         
-        private void UpdateChatView(ChatHistoryModel chatHistoryModel)
+        private void UpdateChatView(ChatHistory chatHistory)
         {
-            var newMessages = chatHistoryModel.Messages.Except(_oldChatHistoryModel.Messages).ToList();
+            var newMessages = chatHistory.Messages.Except(_oldChatHistory.Messages).ToList();
             foreach (var message in newMessages)
             {
                 View.AddMessage(message, _messageWidgetPrefab, _userConfigController.GetUserById(message.SenderId), message.SenderId == _userConfigController.UserStorage.ActiveUser.ID);
             }
             
-            _oldChatHistoryModel = chatHistoryModel;
+            _oldChatHistory = chatHistory;
         }
 
-        private void LoadChatView(ChatHistoryModel chatHistoryModel)
+        private void LoadChatView(ChatHistory chatHistory)
         {
-            foreach (var message in chatHistoryModel.Messages)
+            foreach (var message in chatHistory.Messages)
             {
                 View.AddMessage(message, _messageWidgetPrefab, _userConfigController.GetUserById(message.SenderId), message.SenderId == _userConfigController.UserStorage.ActiveUser.ID);
             }
             
-            _oldChatHistoryModel = chatHistoryModel;
+            _oldChatHistory = chatHistory;
         }
         
     }

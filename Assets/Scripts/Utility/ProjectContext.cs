@@ -1,17 +1,18 @@
 ﻿using System;
 using Controllers;
+using Interface;
 using Presenter;
 using Presenter.View;
 using UnityEngine;
 
 namespace Utility
 {
-    public class ProjectContext : MonoBehaviour
+    public class ProjectContext : MonoBehaviour, IService
     {
         private BasicView _view;
         private UserInterfaceController _userInterfaceController;
         private UserConfigController _userConfigController;
-        private ChatConfigController _chatConfigController;
+        private ChatDataHandler _chatDataHandler;
         private DataStream _dataStream;
         
         [SerializeField] 
@@ -20,7 +21,7 @@ namespace Utility
         private GameObject _windowReferenceServicePrefab;
 
         public UserConfigController UserConfigController => _userConfigController;
-        public ChatConfigController ChatConfigController => _chatConfigController;
+        public ChatDataHandler ChatDataHandler => _chatDataHandler;
         public DataStream DataStream => _dataStream;
 
         private void Awake()
@@ -28,10 +29,10 @@ namespace Utility
             LoadUsers();
             _windowReferenceServicePrefab = Instantiate(_windowReferenceServicePrefab, _projectContextGameObject.transform);
             _userInterfaceController = new UserInterfaceController();
-            _chatConfigController = new ChatConfigController();
-            _chatConfigController.LoadFromJson();
+            _chatDataHandler = new ChatDataHandler();
+            _chatDataHandler.LoadHistory();
             _dataStream = new DataStream();
-            _dataStream.Initialize(_chatConfigController);
+            _dataStream.Initialize(_chatDataHandler);
         }
 
         private void OnEnable()

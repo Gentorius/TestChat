@@ -82,7 +82,7 @@ namespace Presenter.View.Widget
             var newHeight = _defaultMessageHeight * scaleRatioHeight;
 
             if (newHeight < 50)
-                newHeight = newHeight * 2;
+                newHeight *= 2;
             
             messageObject.GetComponent<LayoutElement>().preferredHeight = newHeight;
             messageObject.GetComponent<LayoutElement>().preferredWidth = newWidth;

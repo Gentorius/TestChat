@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Models
 {
     [Serializable]
-    public class ChatHistoryModel
+    public class ChatHistory
     {
         [HideInInspector]
         public List<MessageModel> Messages = new List<MessageModel>();
@@ -14,5 +14,7 @@ namespace Models
         
         [HideInInspector]
         public int IndexOfNewMessage = 0;
+        
+        public bool LastChangeWasByUser = false;
     }
 }
