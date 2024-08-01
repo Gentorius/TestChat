@@ -14,9 +14,11 @@ namespace Utility.DependencyInjection
         private readonly List<object> _instances = new();
         private readonly Dictionary<Type, Type[]> _failedDependencies = new();
         private readonly object _lock = new ();
+        private readonly DIServiceRegistry _serviceRegistry;
 
-        public DIContainer()
+        public DIContainer(DIServiceRegistry serviceRegistry)
         {
+            _serviceRegistry = serviceRegistry;
             RegisterInstance(this);
         }
 
@@ -24,7 +26,7 @@ namespace Utility.DependencyInjection
         {
             lock (_lock)
             {
-                foreach (var (_, service) in DIServiceRegistry.GetAllServices())
+                foreach (var (_, service) in _serviceRegistry.GetAllServices())
                 {
                     RegisterInstance(service);
                     UpdateDependencies();
@@ -64,7 +66,7 @@ namespace Utility.DependencyInjection
                 if (field.GetCustomAttribute<Inject>() == null) continue;
 
                 var fieldType = field.FieldType;
-                if (DIServiceRegistry.TryGetService(fieldType, out var service))
+                if (_serviceRegistry.TryGetService(fieldType, out var service))
                 {
                     field.SetValue(obj, service);
                     continue;
