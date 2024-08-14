@@ -5,15 +5,12 @@ using UnityEngine.Serialization;
 namespace Models
 {
     [Serializable]
-    public class MessageModel
+    public class Message
     {
-        
         public int SenderId;
-        public string Message;
+        public string MessageText;
         public string Sticker;
-        public string[] ReactionEmojis;
+        public string[] Reactions;
         public DateTime TimeSent;
-        [HideInInspector]
-        public int MessageIndex;
     }
 }

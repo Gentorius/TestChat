@@ -1,27 +1,51 @@
-﻿using Interface;
+﻿using Controllers;
+using Interface;
+using Models;
 using UnityEngine;
 using Utility;
+using Utility.DependencyInjection;
 
 public class Bootstrap : MonoBehaviour
 {
-    [SerializeField] 
-    private GameObject _projectContext; //Used for behind the scenes processes
-    [SerializeField] 
-    private GameObject _userInterface; //Used for user input
     [SerializeField]
-    private GameObject _dataStream; //Used for data simulation of data stream between server and client
+    private ProjectContext _projectContext;
+    [SerializeField]
+    private UserInterfaceController _userInterfaceController;
+    
+    
+    private DIServiceRegistry _serviceRegistry;
+    private DIContainer _container;
 
     private void Awake()
     {
-        _dataStream = Instantiate(_dataStream, new Vector3(0, 0, 0), Quaternion.identity);
-        _userInterface = Instantiate(_userInterface, new Vector3(0, 0, 0), Quaternion.identity);
-        _projectContext = Instantiate(_projectContext, new Vector3(0, 0, 0), Quaternion.identity);
-
-        //ServiceLocator.FindService(new ProjectContext());
-        //ServiceLocator.FindService(new DataStream());
+        InstantiateServices();
+        
+        _container = new DIContainer(_serviceRegistry);
+        _container.RegisterServices();
+        
+        
+        _container.InjectDependenciesInAllClasses();
     }
-        
-        
 
+    private void Start()
+    {
+        _container.RegisterServices();
+        _container.InjectDependenciesInAllClasses();
+    }
+    
+    private void InstantiateServices()
+    {
+        _serviceRegistry = new DIServiceRegistry();
+        _serviceRegistry.InstantiateService(_projectContext);
+        _serviceRegistry.InstantiateService<IDataHandler>(new DataHandler());
+        _serviceRegistry.InstantiateService<IChatDataHandler>(new ChatDataHandler());
+        _serviceRegistry.InstantiateService<IChatManager>(new ChatManager());
+        _serviceRegistry.InstantiateService<IChatHistory>(new ChatHistory());
+        _serviceRegistry.InstantiateService<IUserDataHandler>(new UserDataHandler());
+        _serviceRegistry.InstantiateService<IUserInterfaceController>(_userInterfaceController);
         
+        var dataStream = new DataStream();
+        _serviceRegistry.InstantiateService<IDataSender>(dataStream);
+        _serviceRegistry.InstantiateService<IDataReceiver>(dataStream);
+    }
 }

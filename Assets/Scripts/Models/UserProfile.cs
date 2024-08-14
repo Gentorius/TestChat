@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 namespace Models
 {
     [Serializable]
-    public class UserProfileModel
+    public class UserProfile
     {
         [SerializeField]
         private string _nickname;

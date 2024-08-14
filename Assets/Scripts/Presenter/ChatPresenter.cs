@@ -1,5 +1,7 @@
 using System.Linq;
+using Attributes;
 using Controllers;
+using Interface;
 using Models;
 using Presenter.View;
 using Presenter.View.Widget;
@@ -11,8 +13,11 @@ namespace Presenter
 {
     public class ChatPresenter : BasicPresenter<ChatView>
     {
-        private UserConfigController _userConfigController;
-        private ChatDataHandler _chatDataHandler;
+        [Inject]
+        private IUserDataHandler _userDataHandler;
+        [Inject]
+        private IChatDataHandler _chatDataHandler;
+        [Inject]
         private ProjectContext _projectContext;
         private DataStream _dataStream;
         private ChatHistory _oldChatHistory;
@@ -20,15 +25,10 @@ namespace Presenter
         
         protected override void OnShow()
         {
-            _projectContext = Object.FindAnyObjectByType<ProjectContext>();
-            _userConfigController = _projectContext.UserConfigController;
-            _chatDataHandler = _projectContext.ChatDataHandler;
-            _dataStream = _projectContext.DataStream;
             _messageWidgetPrefab = _projectContext.GetComponentInChildren<AssetReferenceObject>().GetReference<MessageWidget>();
             
-            _oldChatHistory = _chatDataHandler.ChatHistory;
-            
-            LoadChatView(_chatDataHandler.ChatHistory);
+            _oldChatHistory = _chatDataHandler.LoadHistory();
+            LoadChatView(_oldChatHistory);
             
             View.OnSendMessage += OnSendMessageHandler;
         }
@@ -43,13 +43,13 @@ namespace Presenter
             if(message == string.Empty) return;
             if (message == null) return;
             
-            var messageJson = JsonUtility.ToJson(new MessageModel
+            var messageJson = JsonUtility.ToJson(new Message
             {
-                Message = message,
-                SenderId = _userConfigController.UserStorage.ActiveUser.ID,
+                MessageText = message,
+                SenderId = _userDataHandler.GetActiveUserId(),
                 TimeSent = System.DateTime.Now
             });
-            _dataStream.SendData(messageJson);
+            _dataStream.SendMessage(messageJson);
         }
         
         private void UpdateChatView(ChatHistory chatHistory)
@@ -57,7 +57,8 @@ namespace Presenter
             var newMessages = chatHistory.Messages.Except(_oldChatHistory.Messages).ToList();
             foreach (var message in newMessages)
             {
-                View.AddMessage(message, _messageWidgetPrefab, _userConfigController.GetUserById(message.SenderId), message.SenderId == _userConfigController.UserStorage.ActiveUser.ID);
+                View.AddMessage(message, _messageWidgetPrefab, _userDataHandler.GetUserById(message.SenderId), 
+                    message.SenderId == _userDataHandler.GetActiveUserId());
             }
             
             _oldChatHistory = chatHistory;
@@ -67,7 +68,8 @@ namespace Presenter
         {
             foreach (var message in chatHistory.Messages)
             {
-                View.AddMessage(message, _messageWidgetPrefab, _userConfigController.GetUserById(message.SenderId), message.SenderId == _userConfigController.UserStorage.ActiveUser.ID);
+                View.AddMessage(message, _messageWidgetPrefab, _userDataHandler.GetUserById(message.SenderId), 
+                    message.SenderId == _userDataHandler.GetActiveUserId());
             }
             
             _oldChatHistory = chatHistory;

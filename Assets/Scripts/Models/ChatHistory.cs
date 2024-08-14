@@ -1,20 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using Interface;
 using UnityEngine;
 
 namespace Models
 {
     [Serializable]
-    public class ChatHistory
+    public class ChatHistory : IChatHistory
     {
-        [HideInInspector]
-        public List<MessageModel> Messages = new List<MessageModel>();
+        [SerializeField]
+        private List<Message> _messages = new List<Message>();
+        
+        public List<Message> Messages => _messages;
+        
+        public void AddMessage(Message message)
+        {
+            _messages.Add(message);
+        }
 
-        public MessageModel[] SerializedMessages;
+        public void DeleteMessage(int index)
+        {
+            _messages.RemoveAt(index);
+        }
         
-        [HideInInspector]
-        public int IndexOfNewMessage = 0;
-        
-        public bool LastChangeWasByUser = false;
+        public void EditMessage(int index, Message newContent)
+        {
+            _messages[index] = newContent;
+        }
     }
 }

@@ -1,34 +1,70 @@
 using System;
-using Controllers;
+using Attributes;
 using Interface;
 
 namespace Utility
 {
-    public class DataStream : IService
+    public class DataStream : IDataSender, IDataReceiver
     {
-        public event Action<string> ReceiveData;
+        public event Action<string> OnSendMessage;
+        public event Action<string, int> OnEditMessage;
+        public event Action<int> OnDeleteMessage;
+        public event Action<string, int> OnAddReaction;
         
-        private ChatDataHandler _chatDataHandler;
+        [Inject]
+        private IChatManager _chatManager;
         
-        public void Initialize(ChatDataHandler chatDataHandler)
+        private bool _hasSubscribed = false;
+
+        public DataStream()
         {
-            ReceiveData += OnReceiveDataHandler;
-            _chatDataHandler = chatDataHandler;
+            if (_hasSubscribed) return;
+            
+            OnSendMessage += ReceiveMessage;
+            OnEditMessage += ReceiveEditedMessage;
+            OnDeleteMessage += ReceiveDeletedMessage;
+            OnAddReaction += ReceiveReaction;
+            _hasSubscribed = true;
         }
         
-        public void SendData(string messageJson)
+        public void SendMessage(string messageJson)
         {
-            ReceiveData?.Invoke(messageJson);
+            OnSendMessage?.Invoke(messageJson);
         }
-        
-        public void OnReceiveDataHandler(string messageJson)
+
+        public void EditMessage(string newMessageJson, int messageIndex)
         {
-            _chatDataHandler.AddMessageFromJson(messageJson);
+            OnEditMessage?.Invoke(newMessageJson, messageIndex);
         }
-        
-        public void Dispose()
+
+        public void DeleteMessage(int messageIndex)
         {
-            ReceiveData -= OnReceiveDataHandler;
+            OnDeleteMessage?.Invoke(messageIndex);
+        }
+
+        public void AddReaction(string reactionJson, int messageIndex)
+        {
+            OnAddReaction?.Invoke(reactionJson, messageIndex);
+        }
+
+        public void ReceiveMessage(string messageJson)
+        {
+            _chatManager.AddMessageFromJson(messageJson);
+        }
+
+        public void ReceiveEditedMessage(string newMessageJson, int messageIndex)
+        {
+            _chatManager.EditMessage(newMessageJson, messageIndex);
+        }
+
+        public void ReceiveDeletedMessage(int messageIndex)
+        {
+            _chatManager.DeleteMessage(messageIndex);
+        }
+
+        public void ReceiveReaction(string reactionJson, int messageIndex)
+        {
+            _chatManager.AddReaction(messageIndex, reactionJson);
         }
     }
 }

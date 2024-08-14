@@ -1,6 +1,6 @@
 ﻿namespace Interface
 {
-    public class IPresenter
+    public interface IPresenter
     {
         
     }

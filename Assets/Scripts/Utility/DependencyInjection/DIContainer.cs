@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Attributes;
+using Controllers;
 using Interface;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace Utility.DependencyInjection
         private readonly Dictionary<Type, Type[]> _failedDependencies = new();
         private readonly object _lock = new ();
         private readonly DIServiceRegistry _serviceRegistry;
+        [Inject]
+        private IUserInterfaceController _userInterfaceController;
 
         public DIContainer(DIServiceRegistry serviceRegistry)
         {
@@ -29,8 +32,8 @@ namespace Utility.DependencyInjection
                 foreach (var (_, service) in _serviceRegistry.GetAllServices())
                 {
                     RegisterInstance(service);
-                    UpdateDependencies();
                 }
+                UpdateDependencies();
             }
         }
 
@@ -77,6 +80,12 @@ namespace Utility.DependencyInjection
                     field.SetValue(obj, this);
                     continue;
                 }
+                
+                if (fieldType.GetInterfaces().Contains(typeof(IPresenter)))
+                {
+                    field.SetValue(obj, _userInterfaceController.GetPresenter(fieldType));
+                    continue;
+                }
 
                 hasFailedInjections = true;
                 failedInjections.Add(fieldType);
@@ -121,9 +130,8 @@ namespace Utility.DependencyInjection
             var type = obj.GetType();
             lock (_lock)
             {
-                if (!_failedDependencies.TryGetValue(type, out _)) return;
-                InjectDependencies(obj);
                 _failedDependencies.Remove(type);
+                InjectDependencies(obj);
             }
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Controllers.Editor
 {
-    [CustomEditor(typeof(UserConfigController))]
+    [CustomEditor(typeof(UserDataHandler))]
     
     public class UserConfigEditor : ConfigEditor
     {
@@ -17,21 +17,21 @@ namespace Controllers.Editor
         }
 
         [ShowInInspector]
-        private UserConfigController _userConfigController = new UserConfigController();
+        private UserDataHandler _userDataHandler = new UserDataHandler();
 
         
         [Button]
         [ButtonGroup("Changes")]
         public void LoadConfig()
         {
-            _userConfigController.LoadFromJson();
+            _userDataHandler.LoadUserData();
         }
         
         [Button]
         [ButtonGroup("Changes")]
         public new void SaveChanges()
         {
-            _userConfigController.SaveToJson();
+            _userDataHandler.SaveUserData();
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Presenter.View
             _sendButton.onClick.RemoveListener(SendMessage);
         }
         
-        public void AddMessage(MessageModel message, GameObject messageWidgetPrefab, UserModel user, bool isCurrentUser)
+        public void AddMessage(Message message, GameObject messageWidgetPrefab, User user, bool isCurrentUser)
         {
             var messageWidget = Instantiate(messageWidgetPrefab, _chatScrollRect.content);
             messageWidget.GetComponent<MessageWidget>().InitializeMessage(message, user, isCurrentUser);

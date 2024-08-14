@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Attributes;
 using Interface;
-using Presenter.View;
 using UnityEngine;
 using Utility;
-using Object = UnityEngine.Object;
+using Utility.DependencyInjection;
 
 namespace Controllers
 {
-    public class UserInterfaceController
+    public class UserInterfaceController : MonoBehaviour, IUserInterfaceController
     {
-        private readonly static Dictionary<Type ,IPresenter> _presenters = new ();
+        [Inject]
+        private ProjectContext _projectContext;
+        [Inject]
+        private DIServiceRegistry _serviceRegistry;
+        
+        private static readonly Dictionary<Type ,IPresenter> _presenters = new ();
 
-        public static T GetPresenter<T>() where T : IPresenter, new()
+        public T GetPresenter<T>() where T : class, IPresenter, new()
         {
             if (_presenters.TryGetValue(typeof(T), out var presenter))
                 return presenter as T;
@@ -22,31 +26,44 @@ namespace Controllers
             return value;
         }
         
-        public static T InstantiateWindow<T>() where T : MonoBehaviour
+        public IPresenter GetPresenter(Type type)
         {
-            var window = GameObject.Find("WindowReferenceService(Clone)").GetComponent<AssetReferenceObject>().GetReference<T>();
+            if (_presenters.TryGetValue(type, out var presenter))
+                return presenter;
+            var value = Activator.CreateInstance(type) as IPresenter;
+            _presenters.Add(type, value);
+            return value;
+        }
+        
+        public T InstantiateWindow<T>() where T : MonoBehaviour
+        {
+            if(_projectContext == null)
+                throw new NullReferenceException("ProjectContext is null in UserInterfaceController during InstantiateWindow");
             
-            var userInterface = GameObject.Find("UserInterface(Clone)");
+            var window = _projectContext.GetComponent<AssetReferenceObject>().GetReference<T>();
+            
+            if (window == null)
+                throw new NullReferenceException("Window is null in UserInterfaceController during InstantiateWindow");
 
-            window = Object.Instantiate(window, userInterface.transform);
+            window = Instantiate(window, gameObject.transform);
 
-            window.transform.SetParent(userInterface.transform);
+            window.transform.SetParent(gameObject.transform);
 
             var component = window.GetComponent<T>();
             return component;
         }
 
-        public static void OpenWindow<T>(T view) where T : MonoBehaviour
+        public void OpenWindow<T>(T view) where T : MonoBehaviour
         {
             view.gameObject.SetActive(true);
         }
 
-        public static void DestroyWindow<T>(T view) where T : MonoBehaviour
+        public void DestroyWindow<T>(T view) where T : MonoBehaviour
         {
-            Object.Destroy(view.gameObject);
+            Destroy(view.gameObject);
         }
 
-        public static void CloseWindow<T>(T view) where T : MonoBehaviour
+        public void CloseWindow<T>(T view) where T : MonoBehaviour
         {
             view.gameObject.SetActive(false);
         }

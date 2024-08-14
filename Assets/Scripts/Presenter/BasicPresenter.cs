@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using Attributes;
+using Controllers;
 using Interface;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
@@ -10,6 +11,9 @@ namespace Presenter
     public abstract class BasicPresenter<TY> : IPresenter where TY : MonoBehaviour, IWindow
     {
         protected TY View;
+        
+        [Inject]
+        protected UserInterfaceController UserInterfaceController;
 
         public void OpenWindow()
         {

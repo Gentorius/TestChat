@@ -37,7 +37,7 @@ namespace Presenter.View.Widget
         [SerializeField]
         private TMPro.TextMeshProUGUI _currentUserTimeSent;
         
-        public void InitializeMessage(MessageModel message, UserModel user, bool isCurrentUser)
+        public void InitializeMessage(Message message, User user, bool isCurrentUser)
         {
             if (isCurrentUser)
             {
@@ -53,23 +53,23 @@ namespace Presenter.View.Widget
             }
         }
         
-        private void InitializeCurrentUserMessage(MessageModel message)
+        private void InitializeCurrentUserMessage(Message message)
         {
-            _currentUserMessageText.GetPreferredValues(message.Message);
-            _currentUserMessageText.text = message.Message;
+            _currentUserMessageText.GetPreferredValues(message.MessageText);
+            _currentUserMessageText.text = message.MessageText;
             _currentUserTimeSent.text = message.TimeSent.ToString("g");
 
-            var messageSize = _currentUserMessageText.GetPreferredValues(message.Message);
+            var messageSize = _currentUserMessageText.GetPreferredValues(message.MessageText);
             AdjustMessageSize(messageSize, _currentUserMessage);
         }
         
-        private void InitializeOtherUserMessage(MessageModel message, UserModel user)
+        private void InitializeOtherUserMessage(Message message, User user)
         {
-            _otherUserMessageText.text = message.Message;
+            _otherUserMessageText.text = message.MessageText;
             _otherUserAvatar.sprite = user.Profile.ProfileImage;
             _otherUserTimeSent.text = message.TimeSent.ToString("g");
             
-            var messageSize = _otherUserMessageText.GetPreferredValues(message.Message);;
+            var messageSize = _otherUserMessageText.GetPreferredValues(message.MessageText);;
             AdjustMessageSize(messageSize, _otherUserMessage);
         }
         

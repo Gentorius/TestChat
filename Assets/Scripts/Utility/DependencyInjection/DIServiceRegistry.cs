@@ -5,19 +5,24 @@ using Interface;
 namespace Utility.DependencyInjection
 {
     // ReSharper disable once InconsistentNaming
-    public class DIServiceRegistry
+    public class DIServiceRegistry : IService
     {
-        private readonly Dictionary<Type, IService> Services = new();
+        private readonly Dictionary<Type, IService> _services = new();
+        
+        public DIServiceRegistry()
+        {
+            _services[typeof(DIServiceRegistry)] = this;
+        }
         
         public T InstantiateService<T>(T service) where T : IService
         {
-            Services[typeof(T)] = service;
+            _services[typeof(T)] = service;
             return service;
         }
         
         public bool TryGetService(Type type,out IService service) 
         {
-            if (Services.TryGetValue(type, out var value))
+            if (_services.TryGetValue(type, out var value))
             {
                 service = value;
                 return true;
@@ -29,7 +34,7 @@ namespace Utility.DependencyInjection
 
         public Dictionary<Type, IService> GetAllServices()
         {
-            return Services;
+            return _services;
         }
     }
 }

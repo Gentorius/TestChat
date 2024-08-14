@@ -27,7 +27,7 @@ namespace Controllers.Editor
         [ButtonGroup("Changes")]
         public new void SaveChanges()
         {
-            _chatDataHandler.SaveToJson();
+            _chatDataHandler.SaveChatHistory();
         }
     }
 }
