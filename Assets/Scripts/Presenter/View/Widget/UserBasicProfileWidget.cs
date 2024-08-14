@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using Attributes;
+using Interface;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utility;
@@ -11,6 +13,9 @@ namespace Presenter.View.Widget
         private GameObject _userProfilePictureObject;
         [SerializeField] 
         private GameObject _userNicknameObject;
+        
+        [Inject]
+        private IUserDataHandler _userDataHandler;
 
         public bool isActiveUser;
         public int userID;
@@ -33,23 +38,19 @@ namespace Presenter.View.Widget
 
         private void SetUserDataByID()
         {
-            var users = GameObject.Find("ProjectContext(Clone)").GetComponent<ProjectContext>()
-                .UserConfigController.UserStorage.Users;
-
-            foreach (var user in users)
-            {
-                if (user.ID == userID)
-                {
-                    _userProfilePictureObject.GetComponent<Image>().sprite = user.Profile.ProfileImage;
-                    _userNicknameObject.GetComponent<TextMeshProUGUI>().text = user.Profile.Nickname;
-                    break;
-                }
-            }
+            var user = _userDataHandler.GetUserById(userID);
+            
+            if(user == null) return;
+            
+            _userProfilePictureObject.GetComponent<Image>().sprite = user.Profile.ProfileImage;
+            _userNicknameObject.GetComponent<TextMeshProUGUI>().text = user.Profile.Nickname;
+            
         }
 
         private void SetActiveUserData()
         {
-            var profile = GameObject.Find("Project Context(Clone)").GetComponent<ProjectContext>().UserConfigController.UserStorage.ActiveUser.Profile;
+            var activeUser = _userDataHandler.GetUserById(_userDataHandler.GetActiveUserId());
+            var profile = activeUser.Profile;
 
             _userProfilePictureObject.GetComponent<Image>().sprite = profile.ProfileImage;
             _userNicknameObject.GetComponent<TextMeshProUGUI>().text = profile.Nickname;
