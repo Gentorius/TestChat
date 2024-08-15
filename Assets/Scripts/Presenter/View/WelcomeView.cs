@@ -25,7 +25,6 @@ namespace Presenter.View
         private void OnMouseDownOrTap()
         {
             OnClick?.Invoke();
-            Debug.Log("MouseDown");
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using Attributes;
 using Interface;
 using Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utility;
 
 namespace Controllers
 {
@@ -23,7 +25,7 @@ namespace Controllers
         
         public ChatDataHandler()
         {
-            SubscribeToChatManager();
+            CoroutineRunner.Instance.StartCoroutine(WaitForChatManager());
         }
         
         public ChatHistory LoadHistory()
@@ -41,6 +43,16 @@ namespace Controllers
             }
             
             _dataHandler.SaveData(_chatHistory, _filePathEnding);
+        }
+        
+        private IEnumerator WaitForChatManager()
+        {
+            while (_chatManager == null)
+            {
+                yield return null;
+            }
+            
+            SubscribeToChatManager();
         }
         
         private void SubscribeToChatManager()

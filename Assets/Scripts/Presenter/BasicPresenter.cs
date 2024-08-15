@@ -1,10 +1,6 @@
 ﻿using Attributes;
-using Controllers;
 using Interface;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
 using UnityEngine;
-using Utility;
 
 namespace Presenter
 {
@@ -13,11 +9,11 @@ namespace Presenter
         protected TY View;
         
         [Inject]
-        protected UserInterfaceController UserInterfaceController;
+        protected IUserInterfaceController UserInterfaceController;
 
         public void OpenWindow()
         {
-            if (View.IsUnityNull())
+            if (View == null)
             {
                 View = UserInterfaceController.InstantiateWindow<TY>();
                 OnShow();
@@ -30,8 +26,8 @@ namespace Presenter
 
         protected void CloseWindow()
         {
-            OnHide();
             UserInterfaceController.DestroyWindow(View);
+            OnHide();
         }
 
         protected virtual void OnShow()

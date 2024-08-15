@@ -1,6 +1,7 @@
 ﻿using Controllers;
 using Interface;
 using Models;
+using Presenter;
 using UnityEngine;
 using Utility;
 using Utility.DependencyInjection;
@@ -11,26 +12,32 @@ public class Bootstrap : MonoBehaviour
     private ProjectContext _projectContext;
     [SerializeField]
     private UserInterfaceController _userInterfaceController;
-    
+    [SerializeField]
+    private CoroutineRunner _coroutineRunner;
     
     private DIServiceRegistry _serviceRegistry;
     private DIContainer _container;
 
     private void Awake()
     {
+        InstantiatePrefabsOfServices();
         InstantiateServices();
         
         _container = new DIContainer(_serviceRegistry);
-        _container.RegisterServices();
-        
-        
-        _container.InjectDependenciesInAllClasses();
     }
 
     private void Start()
     {
         _container.RegisterServices();
-        _container.InjectDependenciesInAllClasses();
+        var basePresenter = _userInterfaceController.GetPresenter<WelcomePresenter>();
+        basePresenter.OpenWindow();
+    }
+    
+    private void InstantiatePrefabsOfServices()
+    {
+        Instantiate(_projectContext);
+        Instantiate(_coroutineRunner);
+        Instantiate(_userInterfaceController);
     }
     
     private void InstantiateServices()

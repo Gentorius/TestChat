@@ -1,6 +1,4 @@
-﻿using System;
-using Models;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Utility
 {
@@ -11,9 +9,14 @@ namespace Utility
         
         public GameObject GetReference<T>() where T : MonoBehaviour
         {
-            Component component;
-            var index = Array.FindIndex(_items, x => x.TryGetComponent(typeof(T), out component));
-            return index != -1 ? _items[index] : null;
+            
+            for (var i = 0; i < _items.Length; i++)
+            {
+                var x = _items[i];
+                if (x.TryGetComponent(typeof(T), out var component))
+                    return x;
+            }
+            return null;
         }
         
     }

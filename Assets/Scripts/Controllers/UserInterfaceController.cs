@@ -14,6 +14,8 @@ namespace Controllers
         private ProjectContext _projectContext;
         [Inject]
         private DIServiceRegistry _serviceRegistry;
+        [Inject]
+        private DIContainer _container;
         
         private static readonly Dictionary<Type ,IPresenter> _presenters = new ();
 
@@ -22,6 +24,7 @@ namespace Controllers
             if (_presenters.TryGetValue(typeof(T), out var presenter))
                 return presenter as T;
             var value = new T();
+            _container.RegisterInstance(value);
             _presenters.Add(typeof(T), value);
             return value;
         }
@@ -31,6 +34,7 @@ namespace Controllers
             if (_presenters.TryGetValue(type, out var presenter))
                 return presenter;
             var value = Activator.CreateInstance(type) as IPresenter;
+            _container.RegisterInstance(value);
             _presenters.Add(type, value);
             return value;
         }
@@ -40,16 +44,14 @@ namespace Controllers
             if(_projectContext == null)
                 throw new NullReferenceException("ProjectContext is null in UserInterfaceController during InstantiateWindow");
             
-            var window = _projectContext.GetComponent<AssetReferenceObject>().GetReference<T>();
+            var window = _projectContext.WindowReferenceServicePrefab.GetReference<T>();
             
             if (window == null)
                 throw new NullReferenceException("Window is null in UserInterfaceController during InstantiateWindow");
+            
+            var go = Instantiate<GameObject>(window, gameObject.transform);
 
-            window = Instantiate(window, gameObject.transform);
-
-            window.transform.SetParent(gameObject.transform);
-
-            var component = window.GetComponent<T>();
+            var component = go.GetComponent<T>();
             return component;
         }
 
