@@ -93,12 +93,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43.65
+  m_fontSize: 89.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 200
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: 250
-  m_PreferredHeight: 100
+  m_PreferredHeight: 200
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 2
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7664537751508078493}
   - component: {fileID: 4180697376887600634}
-  - component: {fileID: 9034963592220647120}
+  - component: {fileID: 6684729145147211351}
   m_Layer: 0
   m_Name: UserBasicProfileWidget
   m_TagString: Untagged
@@ -194,7 +194,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000014305, y: 0.0000038147}
-  m_SizeDelta: {x: 376.5753, y: 99.041}
+  m_SizeDelta: {x: 400, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4180697376887600634
 MonoBehaviour:
@@ -210,9 +210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _userProfilePictureObject: {fileID: 9183356077723917178}
   _userNicknameObject: {fileID: 3769167057000254913}
-  isActiveUser: 0
+  isActiveUser: 1
   userID: 0
---- !u!114 &9034963592220647120
+--- !u!114 &6684729145147211351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6715801793544779165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -229,7 +229,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 7
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -329,8 +329,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 90
-  m_PreferredHeight: 90
-  m_FlexibleWidth: 0.2
-  m_FlexibleHeight: 0.2
+  m_PreferredWidth: 300
+  m_PreferredHeight: 300
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
   m_LayoutPriority: 1
