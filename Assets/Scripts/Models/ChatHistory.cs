@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Models
 {
     [Serializable]
-    public class ChatHistory : IChatHistory
+    public class ChatHistory : IService
     {
         [SerializeField]
         private List<Message> _messages = new List<Message>();
         
         public List<Message> Messages => _messages;
-        
+
         public void AddMessage(Message message)
         {
             _messages.Add(message);

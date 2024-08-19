@@ -1,6 +1,6 @@
+using System.Globalization;
 using System.Linq;
 using Attributes;
-using Controllers;
 using Interface;
 using Models;
 using Presenter.View;
@@ -19,14 +19,16 @@ namespace Presenter
         private IChatDataHandler _chatDataHandler;
         [Inject]
         private ProjectContext _projectContext;
-        private DataStream _dataStream;
+        [Inject]
+        private IDataSender _dataSender;
+        
         private ChatHistory _oldChatHistory;
         private GameObject _messageWidgetPrefab;
         
         protected override void OnShow()
         {
-            _messageWidgetPrefab = _projectContext.GetComponentInChildren<AssetReferenceObject>().GetReference<MessageWidget>();
-            
+            _messageWidgetPrefab = _projectContext.WindowReferenceServicePrefab.GetReference<MessageWidget>();
+
             _oldChatHistory = _chatDataHandler.LoadHistory();
             LoadChatView(_oldChatHistory);
             
@@ -47,15 +49,14 @@ namespace Presenter
             {
                 MessageText = message,
                 SenderId = _userDataHandler.GetActiveUserId(),
-                TimeSent = System.DateTime.Now
+                TimeSent = System.DateTime.Now.ToString(CultureInfo.CurrentCulture)
             });
-            _dataStream.SendMessage(messageJson);
+            _dataSender.SendMessage(messageJson);
         }
         
-        private void UpdateChatView(ChatHistory chatHistory)
+        public void UpdateChatView(ChatHistory chatHistory)
         {
-            var newMessages = chatHistory.Messages.Except(_oldChatHistory.Messages).ToList();
-            foreach (var message in newMessages)
+            foreach (var message in chatHistory.Messages.Skip(_oldChatHistory.Messages.Count))
             {
                 View.AddMessage(message, _messageWidgetPrefab, _userDataHandler.GetUserById(message.SenderId), 
                     message.SenderId == _userDataHandler.GetActiveUserId());

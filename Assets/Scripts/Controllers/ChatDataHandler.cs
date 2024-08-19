@@ -5,6 +5,7 @@ using Interface;
 using Models;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utility;
 
 namespace Controllers
@@ -12,52 +13,36 @@ namespace Controllers
     [Serializable]
     public class ChatDataHandler : IChatDataHandler
     {
-        [SerializeField] [Inject]
-        private ChatHistory _chatHistory;
+        [SerializeField]
+        protected ChatHistory ChatHistory;
         
         [Inject]
-        private IDataHandler _dataHandler;
-        [Inject]
-        private IChatManager _chatManager;
+        protected IDataHandler _dataHandler;
         
         [ShowInInspector]
         private const string _filePathEnding = "ChatHistoryData.json";
         
-        public ChatDataHandler()
-        {
-            CoroutineRunner.Instance.StartCoroutine(WaitForChatManager());
-        }
-        
         public ChatHistory LoadHistory()
         {
-            _chatHistory = _dataHandler.LoadData<ChatHistory>(_filePathEnding);
-            return _chatHistory;
+            ChatHistory = _dataHandler.LoadData<ChatHistory>(_filePathEnding);
+            return _dataHandler.LoadData<ChatHistory>(_filePathEnding);
         }
-        
+
         public void SaveChatHistory()
         {
-            if (_chatHistory == null)
+            if (ChatHistory == null)
             {
-                Debug.LogError($"{nameof(_chatHistory)} cannot be saved as it is null");
+                Debug.LogError($"{nameof(ChatHistory)} cannot be saved as it is null");
                 return;
             }
             
-            _dataHandler.SaveData(_chatHistory, _filePathEnding);
+            _dataHandler.SaveData(ChatHistory, _filePathEnding);
         }
         
-        private IEnumerator WaitForChatManager()
+        public void ClearChatHistory()
         {
-            while (_chatManager == null)
-            {
-                yield return null;
-            }
-            
-            SubscribeToChatManager();
-        }
-        
-        private void SubscribeToChatManager()
-        {
-            _chatManager.OnChatHistoryChanged += SaveChatHistory;
+            ChatHistory.Messages.Clear();
+            SaveChatHistory();
         }
     }
 }

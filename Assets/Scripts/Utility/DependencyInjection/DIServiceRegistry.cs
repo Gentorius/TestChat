@@ -14,7 +14,7 @@ namespace Utility.DependencyInjection
             _services[typeof(DIServiceRegistry)] = this;
         }
         
-        public T InstantiateService<T>(T service) where T : IService
+        public T RegisterService<T>(T service) where T : IService
         {
             _services[typeof(T)] = service;
             return service;

@@ -1,6 +1,6 @@
 ﻿using System;
+using Presenter.View.Widget;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Presenter.View
@@ -9,6 +9,10 @@ namespace Presenter.View
     {
         [SerializeField] 
         private Button _button;
+        [SerializeField]
+        private UserBasicProfileWidget _userBasicProfileWidget;
+        
+        public UserBasicProfileWidget UserBasicProfileWidget => _userBasicProfileWidget;
         
         public event Action OnClick;
 

@@ -15,9 +15,15 @@ namespace Utility.DependencyInjection
         private readonly List<Type> _failedDependencies = new();
         private readonly object _lock = new ();
         private readonly DIServiceRegistry _serviceRegistry;
-        [Inject]
         private IUserInterfaceController _userInterfaceController;
 
+        public DIContainer(DIServiceRegistry serviceRegistry, IUserInterfaceController userInterfaceController)
+        {
+            _serviceRegistry = serviceRegistry;
+            _userInterfaceController = userInterfaceController;
+            RegisterInstance(this);
+        }
+        
         public DIContainer(DIServiceRegistry serviceRegistry)
         {
             _serviceRegistry = serviceRegistry;
@@ -45,7 +51,7 @@ namespace Utility.DependencyInjection
             }
         }
 
-        private void InjectDependencies(object obj)
+        public void InjectDependencies(object obj)
         {
             var fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             foreach (var field in fields)
@@ -72,9 +78,11 @@ namespace Utility.DependencyInjection
                     continue;
                 }
 
-                if(_failedDependencies.Contains(fieldType)) continue;
-                
-                _failedDependencies.Add(fieldType);
+                lock (_lock)
+                {
+                    if(_failedDependencies.Contains(fieldType)) continue;
+                    _failedDependencies.Add(fieldType);
+                }
             }
         }
 

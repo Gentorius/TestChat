@@ -188,7 +188,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 84.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
+  m_fontSize: 140.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 5882595452748461456}
+  _userBasicProfileWidget: {fileID: 1056863859341172750}
 --- !u!114 &5882595452748461456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,7 +537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 989302251247098725, guid: 023ecb80e4be71a43986eee2b056e2b7, type: 3}
       propertyPath: m_fontSize
-      value: 72
+      value: 155.9
       objectReference: {fileID: 0}
     - target: {fileID: 3085590060393784661, guid: 023ecb80e4be71a43986eee2b056e2b7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -651,6 +652,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 023ecb80e4be71a43986eee2b056e2b7, type: 3}
+--- !u!114 &1056863859341172750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4180697376887600634, guid: 023ecb80e4be71a43986eee2b056e2b7, type: 3}
+  m_PrefabInstance: {fileID: 3796092523826402804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6735863fe245a1af7fe177d6e64d64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6841960075826141801 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7664537751508078493, guid: 023ecb80e4be71a43986eee2b056e2b7, type: 3}

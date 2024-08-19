@@ -1,9 +1,9 @@
-﻿using Attributes;
+﻿using System.Collections;
+using Attributes;
 using Interface;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utility;
 
 namespace Presenter.View.Widget
 {
@@ -22,6 +22,18 @@ namespace Presenter.View.Widget
 
         private void OnEnable()
         {
+            StartCoroutine(WaitForUserData());
+        }
+        
+        private void OnDisable()
+        {
+            _userProfilePictureObject.GetComponent<Image>().sprite = null;
+            _userNicknameObject.GetComponent<TextMeshProUGUI>().text = "";
+        }
+        
+        private IEnumerator WaitForUserData()
+        {
+            yield return new WaitUntil(() => _userDataHandler != null);
             SetUserData();
         }
 

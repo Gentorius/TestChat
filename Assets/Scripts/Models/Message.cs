@@ -1,6 +1,4 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Models
 {
@@ -11,6 +9,6 @@ namespace Models
         public string MessageText;
         public string Sticker;
         public string[] Reactions;
-        public DateTime TimeSent;
+        public string TimeSent;
     }
 }

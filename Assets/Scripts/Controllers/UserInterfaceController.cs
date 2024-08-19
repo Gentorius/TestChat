@@ -49,7 +49,7 @@ namespace Controllers
             if (window == null)
                 throw new NullReferenceException("Window is null in UserInterfaceController during InstantiateWindow");
             
-            var go = Instantiate<GameObject>(window, gameObject.transform);
+            var go = Instantiate(window, gameObject.transform);
 
             var component = go.GetComponent<T>();
             return component;

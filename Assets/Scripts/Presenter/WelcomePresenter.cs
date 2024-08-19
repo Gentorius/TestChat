@@ -1,5 +1,6 @@
 ﻿using Attributes;
 using Presenter.View;
+using Utility.DependencyInjection;
 
 namespace Presenter
 {
@@ -7,8 +8,11 @@ namespace Presenter
     {
         [Inject]
         private ChatPresenter _chatPresenter;
+        [Inject]
+        private DIContainer _diContainer;
         protected override void OnShow()
         {
+            _diContainer.InjectDependencies(View.UserBasicProfileWidget);
             View.OnClick += CloseWindow;
         }
 

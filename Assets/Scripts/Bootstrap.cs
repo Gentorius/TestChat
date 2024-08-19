@@ -17,19 +17,23 @@ public class Bootstrap : MonoBehaviour
     
     private DIServiceRegistry _serviceRegistry;
     private DIContainer _container;
+    private IUserDataHandler _userDataHandler;
+    private ChatManager _chatManager;
 
     private void Awake()
     {
         InstantiatePrefabsOfServices();
         InstantiateServices();
         
-        _container = new DIContainer(_serviceRegistry);
+        _container = new DIContainer(_serviceRegistry, _userInterfaceController);
     }
 
     private void Start()
     {
         _container.RegisterServices();
         var basePresenter = _userInterfaceController.GetPresenter<WelcomePresenter>();
+        _userDataHandler.LoadUserData();
+        _chatManager.LoadHistory();
         basePresenter.OpenWindow();
     }
     
@@ -37,22 +41,20 @@ public class Bootstrap : MonoBehaviour
     {
         Instantiate(_projectContext);
         Instantiate(_coroutineRunner);
-        Instantiate(_userInterfaceController);
     }
     
     private void InstantiateServices()
     {
         _serviceRegistry = new DIServiceRegistry();
-        _serviceRegistry.InstantiateService(_projectContext);
-        _serviceRegistry.InstantiateService<IDataHandler>(new DataHandler());
-        _serviceRegistry.InstantiateService<IChatDataHandler>(new ChatDataHandler());
-        _serviceRegistry.InstantiateService<IChatManager>(new ChatManager());
-        _serviceRegistry.InstantiateService<IChatHistory>(new ChatHistory());
-        _serviceRegistry.InstantiateService<IUserDataHandler>(new UserDataHandler());
-        _serviceRegistry.InstantiateService<IUserInterfaceController>(_userInterfaceController);
+        _serviceRegistry.RegisterService(_projectContext);
+        _serviceRegistry.RegisterService<IUserInterfaceController>(_userInterfaceController);
+        _serviceRegistry.RegisterService<IDataHandler>(new DataHandler());
+        _chatManager = (ChatManager)_serviceRegistry.RegisterService<IChatDataHandler>(new ChatManager());
+        _serviceRegistry.RegisterService<IChatManager>(_chatManager);
+        _userDataHandler = _serviceRegistry.RegisterService<IUserDataHandler>(new UserDataHandler());
         
         var dataStream = new DataStream();
-        _serviceRegistry.InstantiateService<IDataSender>(dataStream);
-        _serviceRegistry.InstantiateService<IDataReceiver>(dataStream);
+        _serviceRegistry.RegisterService<IDataSender>(dataStream);
+        _serviceRegistry.RegisterService<IDataReceiver>(dataStream);
     }
 }

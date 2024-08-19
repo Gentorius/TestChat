@@ -1,4 +1,3 @@
-using System;
 using Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,8 @@ namespace Presenter.View.Widget
         
         private const float _defaultMessageWidth = 370f;
         private const float _defaultMessageHeight = 200f;
+        private const float _minMessageHeight = 120f;
+        private const float _minMessageWidth = 200f;
         
         [SerializeField]
         private bool _canValidate = false;
@@ -37,7 +38,9 @@ namespace Presenter.View.Widget
         [SerializeField]
         private TMPro.TextMeshProUGUI _currentUserTimeSent;
         
-        public void InitializeMessage(Message message, User user, bool isCurrentUser)
+        private float _heightChange;
+        
+        public float InitializeMessage(Message message, User user, bool isCurrentUser)
         {
             if (isCurrentUser)
             {
@@ -51,13 +54,15 @@ namespace Presenter.View.Widget
                 _otherUserMessageContainer.SetActive(true);
                 InitializeOtherUserMessage(message, user);
             }
+
+            return _heightChange;
         }
         
         private void InitializeCurrentUserMessage(Message message)
         {
             _currentUserMessageText.GetPreferredValues(message.MessageText);
             _currentUserMessageText.text = message.MessageText;
-            _currentUserTimeSent.text = message.TimeSent.ToString("g");
+            _currentUserTimeSent.text = message.TimeSent;
 
             var messageSize = _currentUserMessageText.GetPreferredValues(message.MessageText);
             AdjustMessageSize(messageSize, _currentUserMessage);
@@ -67,13 +72,13 @@ namespace Presenter.View.Widget
         {
             _otherUserMessageText.text = message.MessageText;
             _otherUserAvatar.sprite = user.Profile.ProfileImage;
-            _otherUserTimeSent.text = message.TimeSent.ToString("g");
+            _otherUserTimeSent.text = message.TimeSent;
             
             var messageSize = _otherUserMessageText.GetPreferredValues(message.MessageText);;
             AdjustMessageSize(messageSize, _otherUserMessage);
         }
         
-        private static void AdjustMessageSize(Vector2 messageSize, GameObject messageObject)
+        private void AdjustMessageSize(Vector2 messageSize, GameObject messageObject)
         {
             var scaleRatioWidth = messageSize.x / _defaultTextFieldWidth;
             var scaleRatioHeight = messageSize.y / _defaultTextFieldHeight;
@@ -81,15 +86,24 @@ namespace Presenter.View.Widget
             var newWidth = _defaultMessageWidth * scaleRatioWidth;
             var newHeight = _defaultMessageHeight * scaleRatioHeight;
 
-            if (newHeight < 50)
-                newHeight *= 2;
+            if (newHeight < _minMessageHeight)
+            {
+                newHeight = _minMessageHeight;
+            }
+
+            _heightChange = newHeight;
+            
+            if (newWidth < _minMessageWidth)
+            {
+                newWidth = _minMessageWidth;
+            }
             
             messageObject.GetComponent<LayoutElement>().preferredHeight = newHeight;
             messageObject.GetComponent<LayoutElement>().preferredWidth = newWidth;
             messageObject.GetComponent<LayoutElement>().minHeight = newHeight;
             messageObject.GetComponent<LayoutElement>().minWidth = newWidth;
         }
-
+        
         private void OnValidate()
         {
             if (!_canValidate) return;

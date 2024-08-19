@@ -1,19 +1,21 @@
-﻿using Sirenix.OdinInspector;
+﻿using System.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEditor;
-using UnityEngine;
 
 namespace Controllers.Editor
 {
     [CustomEditor(typeof(UserDataHandler))]
     
+    // ReSharper disable once RequiredBaseTypesIsNotInherited
     public class UserConfigEditor : ConfigEditor
     {
         
-        [MenuItem("Tools/ClientConfigs/UsersConfig")]
-        private static void ShowWindow()
+        [MenuItem("Tools/Configs/UsersConfig")]
+        private static async void ShowWindow()
         {
-            var w = OpenWindow<UserConfigEditor>();
+            var w = await GetWindow<UserConfigEditor>();
             w.LoadConfig();
+            w.Show();
         }
 
         [ShowInInspector]
@@ -24,6 +26,8 @@ namespace Controllers.Editor
         [ButtonGroup("Changes")]
         public void LoadConfig()
         {
+            CreateDiContainerWithRegisteredDependencies();
+            DiContainer.InjectDependencies(_userDataHandler);
             _userDataHandler.LoadUserData();
         }
         
@@ -31,6 +35,8 @@ namespace Controllers.Editor
         [ButtonGroup("Changes")]
         public new void SaveChanges()
         {
+            CreateDiContainerWithRegisteredDependencies();
+            DiContainer.InjectDependencies(_userDataHandler);
             _userDataHandler.SaveUserData();
         }
     }
