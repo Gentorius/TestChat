@@ -131,7 +131,7 @@ namespace Presenter.View.Widget
 
         public void DisableEditMode()
         {
-            if (_deleteButton != null) _deleteButton.gameObject.SetActive(false);
+            _deleteButton.gameObject.SetActive(false);
         }
 
         private void InitializeCurrentUserMessage(Message message)
