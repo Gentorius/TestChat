@@ -17,15 +17,15 @@ namespace Controllers
         protected ChatHistory ChatHistory;
         
         [Inject]
-        protected IDataHandler _dataHandler;
+        protected IDataHandler DataHandler;
         
         [ShowInInspector]
         private const string _filePathEnding = "ChatHistoryData.json";
         
         public ChatHistory LoadHistory()
         {
-            ChatHistory = _dataHandler.LoadData<ChatHistory>(_filePathEnding);
-            return _dataHandler.LoadData<ChatHistory>(_filePathEnding);
+            ChatHistory = DataHandler.LoadData<ChatHistory>(_filePathEnding);
+            return DataHandler.LoadData<ChatHistory>(_filePathEnding);
         }
 
         public void SaveChatHistory()
@@ -36,7 +36,7 @@ namespace Controllers
                 return;
             }
             
-            _dataHandler.SaveData(ChatHistory, _filePathEnding);
+            DataHandler.SaveData(ChatHistory, _filePathEnding);
         }
         
         public void ClearChatHistory()
