@@ -1823,7 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chatScrollRect: {fileID: 6155824788816459688}
-  _messageInputField: {fileID: 0}
+  _messageInputField: {fileID: 3336818521910859960}
   _sendButton: {fileID: 2146140715679085264}
   _defaultMessageWidget: {fileID: 8108789352422370836}
   _chatContent: {fileID: 3522524464651676264}

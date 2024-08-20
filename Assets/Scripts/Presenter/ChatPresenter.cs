@@ -58,6 +58,7 @@ namespace Presenter
         protected override void OnHide()
         {
             View.OnSendMessage -= OnSendMessageHandler;
+            View.OnExitEditMode -= OnExitEditModeHandler;
         }
 
         private void OnSendMessageHandler(string message)

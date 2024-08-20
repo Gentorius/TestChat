@@ -118,7 +118,7 @@ namespace Presenter.View.Widget
             }
 
             _deleteButton.gameObject.SetActive(isEditMode);
-            _deleteButton.onClick.AddListener(() => Destroy(gameObject));
+            _deleteButton.onClick.AddListener(DeleteMessage);
             _messageIndex = index;
 
             return _heightChange;
@@ -131,7 +131,7 @@ namespace Presenter.View.Widget
 
         public void DisableEditMode()
         {
-            _deleteButton.gameObject.SetActive(false);
+            if (_deleteButton != null) _deleteButton.gameObject.SetActive(false);
         }
 
         private void InitializeCurrentUserMessage(Message message)
