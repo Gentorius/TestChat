@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Models;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -42,12 +43,19 @@ namespace Presenter.View.Widget
         private TextMeshProUGUI _currentUserTimeSent;
         [SerializeField]
         private Button _deleteButton;
+        
+        [ShowInInspector][ReadOnly]
+        private int _messageIndex;
 
         private float _heightChange;
         private Coroutine _holdCoroutine;
         private bool _isPressed;
-        private int _messageIndex;
         private float _pressDuration;
+        
+        public event Action OnEditModeStart;
+        public event Action<int, float> OnDeleteMessage;
+        
+        public bool IsDestroyed { get; private set; }
 
         private void OnDisable()
         {
@@ -98,9 +106,6 @@ namespace Presenter.View.Widget
             _pressDuration = 0f;
         }
 
-        public event Action OnEditModeStart;
-        public event Action<int, float> OnDeleteMessage;
-
         public float InitializeMessage(Message message, User user, bool isCurrentUser, int index,
             bool isEditMode = false)
         {
@@ -132,6 +137,11 @@ namespace Presenter.View.Widget
         public void DisableEditMode()
         {
             _deleteButton.gameObject.SetActive(false);
+        }
+        
+        public void SetMessageIndex(int index)
+        {
+            _messageIndex = index;
         }
 
         private void InitializeCurrentUserMessage(Message message)
@@ -193,6 +203,7 @@ namespace Presenter.View.Widget
         private void DeleteMessage()
         {
             OnDeleteMessage?.Invoke(_messageIndex, _heightChange);
+            IsDestroyed = true;
             Destroy(gameObject);
         }
     }
