@@ -14,10 +14,10 @@ namespace Presenter
 {
     public class ChatPresenter : BasicPresenter<ChatView>
     {
-        private readonly List<MessageWidget> _messageWidgets = new();
+        private readonly IList<IMessageWidget> _messageWidgets = new List<IMessageWidget>();
         private bool _isEditMode;
-        private GameObject _messageWidgetPrefab;
         private ChatHistory _oldChatHistory;
+        private IList<int> _messagesToDelete = new List<int>(); 
         
         [Inject]
         private IChatDataHandler _chatDataHandler;
@@ -30,45 +30,29 @@ namespace Presenter
 
         protected override void OnShow()
         {
-            _messageWidgetPrefab = _projectContext.WindowReferenceServicePrefab.GetReference<MessageWidget>();
-
             _oldChatHistory = _chatDataHandler.LoadHistory();
             LoadChatView(_oldChatHistory);
 
             View.OnSendMessage += OnSendMessageHandler;
-            View.OnExitEditMode += OnExitEditModeHandler;
+            View.OnClickEditModeButton += OnClickEditModeButtonHandler;
         }
 
-        private void OnExitEditModeHandler()
+        private void OnClickEditModeButtonHandler()
         {
-            if (!_isEditMode) return;
-
-            _isEditMode = false;
-            var foundDeletedMessage = false;
-
-            foreach (var messageWidget in _messageWidgets.ToList())
+            if (!_isEditMode)
             {
-                if (messageWidget.IsDestroyed)
-                {
-                    _messageWidgets.Remove(messageWidget);
-                    foundDeletedMessage = true;
-                    continue;
-                }
-                messageWidget.DisableEditMode();
+                StartEditMode();
+                return;
             }
-
-            if (!foundDeletedMessage) return;
-            SetNewMessageIndexes();
+            
+            EndEditMode();
         }
 
         private void OnDeleteMessageHandler(int messageIndex, float heightChange)
         {
             View.UnsubscribeMessageWidget(_messageWidgets[messageIndex]);
-            _dataSender.DeleteMessage(messageIndex);
             _messageWidgets[messageIndex].OnDeleteMessage -= OnDeleteMessageHandler;
-            _messageWidgets[messageIndex].OnEditModeStart -= OnEnableEditModeHandler;
-            _messageWidgets.RemoveAt(messageIndex);
-            SetNewMessageIndexes();
+            _messagesToDelete.Add(messageIndex);
         }
         
         private void SetNewMessageIndexes()
@@ -83,7 +67,7 @@ namespace Presenter
         protected override void OnHide()
         {
             View.OnSendMessage -= OnSendMessageHandler;
-            View.OnExitEditMode -= OnExitEditModeHandler;
+            View.OnClickEditModeButton -= OnClickEditModeButtonHandler;
         }
 
         private void OnSendMessageHandler(string message)
@@ -111,10 +95,18 @@ namespace Presenter
         private void AddMessage(List<Message> newMessages, int index)
         {
             var message = newMessages[index];
-            var newWidget = View.AddMessage(message, _messageWidgetPrefab,
-                _userDataHandler.GetUserById(message.SenderId),
-                message.SenderId == _userDataHandler.GetActiveUserId(), index, _isEditMode);
-            newWidget.OnEditModeStart += OnEnableEditModeHandler;
+            var profileImage = _userDataHandler.GetUserById(message.SenderId).Profile.ProfileImage;
+            var messageWidgetPrefab =
+                _projectContext.WindowReferenceServicePrefab.GetReference<OtherUserMessageWidget>();
+
+            if (message.SenderId == _userDataHandler.GetActiveUserId())
+            {
+                messageWidgetPrefab = _projectContext.WindowReferenceServicePrefab.GetReference<CurrentUserMessageWidget>();
+            }
+            
+            var newWidget = View.AddMessage(message, messageWidgetPrefab,
+                profileImage, index, _isEditMode);
+            
             newWidget.OnDeleteMessage += OnDeleteMessageHandler;
             _messageWidgets.Add(newWidget);
         }
@@ -126,13 +118,35 @@ namespace Presenter
             _oldChatHistory = chatHistory;
         }
 
-        private void OnEnableEditModeHandler()
+        private void StartEditMode()
         {
             if (_isEditMode) return;
 
             _isEditMode = true;
 
             foreach (var messageWidget in _messageWidgets.ToList()) messageWidget.EnableEditMode();
+        }
+        
+        private void EndEditMode()
+        {
+            if (!_isEditMode) return;
+
+            _isEditMode = false;
+            
+            _messagesToDelete = _messagesToDelete.OrderByDescending(x => x).ToList();
+            
+            foreach (var messageIndex in _messagesToDelete)
+            {
+                View.UnsubscribeMessageWidget(_messageWidgets[messageIndex]);
+                _messageWidgets[messageIndex].OnDeleteMessage -= OnDeleteMessageHandler;
+                _messageWidgets[messageIndex].Destroy();
+                _messageWidgets.RemoveAt(messageIndex);
+                _dataSender.DeleteMessage(messageIndex);
+            }
+            
+            SetNewMessageIndexes();
+
+            foreach (var messageWidget in _messageWidgets.ToList()) messageWidget.DisableEditMode();
         }
     }
 }

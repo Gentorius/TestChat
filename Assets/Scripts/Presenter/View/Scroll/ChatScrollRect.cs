@@ -9,7 +9,8 @@ namespace Presenter.View.Scroll
     {
         public void ScrollToBottom()
         {
-            this.DONormalizedPos(Vector2.zero, 1f);
+            this.DOKill(complete: true);
+            this.DOVerticalNormalizedPos(0, 0.5f);
         }
 
         private const float _smoothScrollTime = 0.2f;
