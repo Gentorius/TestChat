@@ -13,46 +13,47 @@ namespace Presenter.View
     public class ChatView : BasicView
     {
         [SerializeField]
-        private ChatScrollRect _chatScrollRect;
+        ChatScrollRect _chatScrollRect;
         [SerializeField]
-        private TMP_InputField _messageInputField;
+        TMP_InputField _messageInputField;
         [SerializeField]
-        private Button _sendButton;
+        Button _sendButton;
         [SerializeField]
-        private BaseMessageWidget _defaultMessageWidget;
+        CurrentUserMessageWidget _defaultMessageWidget;
         [SerializeField]
-        private GameObject _chatContent;
+        GameObject _chatContent;
         [SerializeField]
-        private Button _editModeButton;
+        Button _editModeButton;
         
         public event Action<string> OnSendMessage;
         public event Action OnClickEditModeButton;
 
-        private void OnEnable()
+        void OnEnable()
         {
             _sendButton.onClick.AddListener(SendMessage);
             _defaultMessageWidget.gameObject.SetActive(false);
             _editModeButton.onClick.AddListener(OnClickEditModeButtonHandler);
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             _sendButton.onClick.RemoveListener(SendMessage);
+            _editModeButton.onClick.RemoveListener(OnClickEditModeButtonHandler);
         }
 
-        private void SendMessage()
+        void SendMessage()
         {
             OnSendMessage?.Invoke(_messageInputField.text);
         }
 
         public IMessageWidget AddMessage(Message message, GameObject messageWidgetPrefab, Sprite profileImage,
-            int index, bool isEditMode = false)
+            int index, bool isEditMode = false, bool isLastMessageOfUser = false)
         {
             var messageWidget = Instantiate(messageWidgetPrefab, _chatScrollRect.content);
             messageWidget.SetActive(true);
             var messageWidgetComponent = messageWidget.GetComponent<IMessageWidget>();
             var heightIncrease =
-                messageWidgetComponent.InitializeMessage(message, profileImage, index, isEditMode);
+                messageWidgetComponent.InitializeMessage(message, profileImage, index, isEditMode, isLastMessageOfUser);
             messageWidgetComponent.OnDeleteMessage += OnDeleteMessageHandler;
             IncreaseChatContentHeight(heightIncrease);
             _chatScrollRect.ScrollToBottom();
@@ -64,22 +65,22 @@ namespace Presenter.View
             baseMessageWidget.OnDeleteMessage -= OnDeleteMessageHandler;
         }
 
-        private void IncreaseChatContentHeight(float heightChange)
+        void IncreaseChatContentHeight(float heightChange)
         {
             _chatContent.GetComponent<RectTransform>().sizeDelta += new Vector2(0, heightChange);
         }
 
-        private void DecreaseChatContentHeight(float heightChange)
+        void DecreaseChatContentHeight(float heightChange)
         {
             _chatContent.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, heightChange);
         }
 
-        private void OnDeleteMessageHandler(int messageIndex, float heightDecrease)
+        void OnDeleteMessageHandler(int messageIndex, float heightDecrease)
         {
             DecreaseChatContentHeight(heightDecrease);
         }
-        
-        private void OnClickEditModeButtonHandler()
+
+        void OnClickEditModeButtonHandler()
         {
             OnClickEditModeButton?.Invoke();
         }

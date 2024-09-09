@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2651599512981319959}
   - component: {fileID: 8289454283199047326}
   m_Layer: 0
-  m_Name: ActiveUserMessage
+  m_Name: UserMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3673929187261713121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -119,10 +119,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1183848898448384896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1131.6993, y: -135.0605}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7293418253556520255
 CanvasRenderer:
@@ -319,7 +319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1717057344879451739
 RectTransform:
   m_ObjectHideFlags: 0
@@ -334,10 +334,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1183848898448384896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1296.6993, y: -135.0605}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6394686799044876525
 CanvasRenderer:
@@ -479,8 +479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -124.30824, y: 33.634777}
-  m_SizeDelta: {x: 833.7019, y: 270.121}
+  m_AnchoredPosition: {x: 8.9734, y: 0}
+  m_SizeDelta: {x: 1422.0532, y: 270.121}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8009479978516760200
 MonoBehaviour:
@@ -495,12 +495,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 100
-    m_Right: 5
+    m_Left: 0
+    m_Right: -750
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
-  m_Spacing: 15
+  m_Spacing: 40
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -546,6 +546,7 @@ MonoBehaviour:
   _messageText: {fileID: 4030524345428918961}
   _timeSent: {fileID: 3786382822583365424}
   _deleteButton: {fileID: 3060457085620149411}
+  _messageTail: {fileID: 3019123189288981556}
 --- !u!1 &5848267053988215635
 GameObject:
   m_ObjectHideFlags: 0

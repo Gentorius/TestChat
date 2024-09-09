@@ -14,19 +14,19 @@ namespace Presenter
 {
     public class ChatPresenter : BasicPresenter<ChatView>
     {
-        private readonly IList<IMessageWidget> _messageWidgets = new List<IMessageWidget>();
-        private bool _isEditMode;
-        private ChatHistory _oldChatHistory;
-        private IList<int> _messagesToDelete = new List<int>(); 
+        readonly IList<IMessageWidget> _messageWidgets = new List<IMessageWidget>();
+        bool _isEditMode;
+        ChatHistory _oldChatHistory;
+        IList<int> _messagesToDelete = new List<int>(); 
         
         [Inject]
-        private IChatDataHandler _chatDataHandler;
+        IChatDataHandler _chatDataHandler;
         [Inject]
-        private IDataSender _dataSender;
+        IDataSender _dataSender;
         [Inject]
-        private ProjectContext _projectContext;
+        ProjectContext _projectContext;
         [Inject]
-        private IUserDataHandler _userDataHandler;
+        IUserDataHandler _userDataHandler;
 
         protected override void OnShow()
         {
@@ -37,7 +37,7 @@ namespace Presenter
             View.OnClickEditModeButton += OnClickEditModeButtonHandler;
         }
 
-        private void OnClickEditModeButtonHandler()
+        void OnClickEditModeButtonHandler()
         {
             if (!_isEditMode)
             {
@@ -48,19 +48,27 @@ namespace Presenter
             EndEditMode();
         }
 
-        private void OnDeleteMessageHandler(int messageIndex, float heightChange)
+        void OnDeleteMessageHandler(int messageIndex, float heightChange)
         {
             View.UnsubscribeMessageWidget(_messageWidgets[messageIndex]);
             _messageWidgets[messageIndex].OnDeleteMessage -= OnDeleteMessageHandler;
             _messagesToDelete.Add(messageIndex);
         }
-        
-        private void SetNewMessageIndexes()
+
+        void SetNewMessageIndexes()
         {
             _oldChatHistory = _chatDataHandler.LoadHistory();
             for (var index = 0; index < _messageWidgets.Count; index++)
             {
                 _messageWidgets[index].SetMessageIndex(index);
+            }
+        }
+        
+        void UpdateLastMessageStatuses()
+        {
+            for (var index = 0; index < _messageWidgets.Count; index++)
+            {
+                _messageWidgets[index].SetLastMessageStatus(IsLastMessageOfUser(index, _oldChatHistory.Messages));
             }
         }
 
@@ -70,7 +78,7 @@ namespace Presenter
             View.OnClickEditModeButton -= OnClickEditModeButtonHandler;
         }
 
-        private void OnSendMessageHandler(string message)
+        void OnSendMessageHandler(string message)
         {
             if (message == string.Empty) return;
             if (message == null) return;
@@ -87,14 +95,15 @@ namespace Presenter
         public void UpdateChatView(ChatHistory chatHistory)
         {
             var newMessages = chatHistory.Messages.Skip(_oldChatHistory.Messages.Count).ToList();
-            for (var index = 0; index < newMessages.Count; index++) AddMessage(newMessages, index);
-
+            for (var index = 0; index < newMessages.Count; index++) AddMessage(newMessages[index], index, 
+                IsLastMessageOfUser(index, chatHistory.Messages));
+            
             _oldChatHistory = chatHistory;
+            UpdateLastMessageStatuses();
         }
 
-        private void AddMessage(List<Message> newMessages, int index)
+        void AddMessage(Message message, int index, bool isLastMessageOfUser = false)
         {
-            var message = newMessages[index];
             var profileImage = _userDataHandler.GetUserById(message.SenderId).Profile.ProfileImage;
             var messageWidgetPrefab =
                 _projectContext.WindowReferenceServicePrefab.GetReference<OtherUserMessageWidget>();
@@ -105,20 +114,21 @@ namespace Presenter
             }
             
             var newWidget = View.AddMessage(message, messageWidgetPrefab,
-                profileImage, index, _isEditMode);
+                profileImage, index, _isEditMode, isLastMessageOfUser);
             
             newWidget.OnDeleteMessage += OnDeleteMessageHandler;
             _messageWidgets.Add(newWidget);
         }
 
-        private void LoadChatView(ChatHistory chatHistory)
+        void LoadChatView(ChatHistory chatHistory)
         {
-            for (var index = 0; index < chatHistory.Messages.Count; index++) AddMessage(chatHistory.Messages, index);
+            for (var index = 0; index < chatHistory.Messages.Count; index++) AddMessage(chatHistory.Messages[index], index, 
+                IsLastMessageOfUser(index, chatHistory.Messages));
 
             _oldChatHistory = chatHistory;
         }
 
-        private void StartEditMode()
+        void StartEditMode()
         {
             if (_isEditMode) return;
 
@@ -126,8 +136,8 @@ namespace Presenter
 
             foreach (var messageWidget in _messageWidgets.ToList()) messageWidget.EnableEditMode();
         }
-        
-        private void EndEditMode()
+
+        void EndEditMode()
         {
             if (!_isEditMode) return;
 
@@ -145,8 +155,15 @@ namespace Presenter
             }
             
             SetNewMessageIndexes();
+            UpdateLastMessageStatuses();
 
             foreach (var messageWidget in _messageWidgets.ToList()) messageWidget.DisableEditMode();
+        }
+
+        static bool IsLastMessageOfUser(int index, List<Message> messages)
+        {
+            if (index + 1 >= messages.Count) return true;
+            return messages[index + 1].SenderId != messages[index].SenderId;
         }
     }
 }

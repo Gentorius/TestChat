@@ -33,12 +33,12 @@ namespace Presenter.View.Widget
         TextMeshProUGUI _timeSent;
         [SerializeField]
         Button _deleteButton;
+        [SerializeField]
+        Image _messageTail;
 
         float _heightChange;
         
         public event Action<int, float> OnDeleteMessage;
-        
-        public bool IsDestroyed { get; private set; }
 
         [ShowInInspector]
         [ReadOnly]
@@ -65,13 +65,15 @@ namespace Presenter.View.Widget
             AdjustMessageSize(messageSize);
         }
 
-        public virtual float InitializeMessage(Message message, Sprite profileImage, int index,
-            bool isEditMode = false)
+        public float InitializeMessage(Message message, Sprite profileImage, int index,
+            bool isEditMode = false, bool isLastMessageOfUser = false)
         {
             _messageText.GetPreferredValues(message.MessageText);
             _messageText.text = message.MessageText;
             _timeSent.text = message.TimeSent;
             _profileImage.sprite = profileImage;
+            _messageTail.gameObject.SetActive(isLastMessageOfUser);
+            _profileImage.gameObject.SetActive(isLastMessageOfUser);
 
             var messageSize = _messageText.GetPreferredValues(message.MessageText);
             AdjustMessageSize(messageSize);
@@ -104,6 +106,12 @@ namespace Presenter.View.Widget
         {
             Destroy(gameObject);
         }
+        
+        public void SetLastMessageStatus(bool isLastMessage)
+        {
+            _messageTail.gameObject.SetActive(isLastMessage);
+            _profileImage.gameObject.SetActive(isLastMessage);
+        }
 
         void AdjustMessageSize(Vector2 messageSize)
         {
@@ -128,7 +136,6 @@ namespace Presenter.View.Widget
         void OnDeleteHandler()
         {
             OnDeleteMessage?.Invoke(_messageIndex, _heightChange);
-            IsDestroyed = true;
             gameObject.SetActive(false);
         }
 

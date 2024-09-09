@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2651599512981319959}
   - component: {fileID: 8289454283199047326}
   m_Layer: 0
-  m_Name: ActiveUserMessage
+  m_Name: UserMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 1183848898448384896}
   - component: {fileID: 8009479978516760200}
   - component: {fileID: 6605212541242706588}
-  - component: {fileID: 8862459695821786089}
+  - component: {fileID: 199416468583839098}
   m_Layer: 0
   m_Name: OtherUserMessageWidget
   m_TagString: Untagged
@@ -495,8 +495,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 100
-    m_Right: 5
+    m_Left: -750
+    m_Right: 0
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
---- !u!114 &8862459695821786089
+--- !u!114 &199416468583839098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -537,15 +537,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5483257164699809002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 142cc772d9664ec681047b2566dab4bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 924b80c420954ddea5c0354adea5f9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canValidate: 1
+  _canValidate: 0
   _message: {fileID: 797663614851154609}
   _profileImage: {fileID: 6764824139948987498}
   _messageText: {fileID: 4030524345428918961}
   _timeSent: {fileID: 3786382822583365424}
   _deleteButton: {fileID: 3060457085620149411}
+  _messageTail: {fileID: 3019123189288981556}
 --- !u!1 &5848267053988215635
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,10 +736,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 853890623975258522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -992, y: 0}
-  m_SizeDelta: {x: 85.96341, y: 62.0922}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -50, y: 0}
+  m_SizeDelta: {x: 85.96338, y: 62.0922}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &4124073956785844013
 CanvasRenderer:
